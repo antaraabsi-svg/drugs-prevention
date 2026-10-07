@@ -1,0 +1,101 @@
+/* =====================================================================
+   print.css — المطبوعات: الشهادة، البطاقات، الملصق، الميثاق، التقرير
+   حجم الصفحة يُحقن من app.js عند الطباعة (الشهادة أفقية والبقية عمودية).
+   الألوان هنا من رموز الهوية؛ تأكّد من تفعيل «الخلفيات» عند الطباعة.
+   ===================================================================== */
+#printcert,#printkit{display:none}
+.kpage{page-break-after:always;break-after:page;color:var(--green-700);background:#fff}
+.kpage:last-child{page-break-after:auto;break-after:auto}
+
+@media print{
+  html{font-size:16px!important}
+  html,body{height:auto!important;min-height:0!important}
+  body{padding:0!important;margin:0!important;background:#fff!important;color:var(--ink-900)}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .noprint,.skip{display:none!important}
+
+  /* ---------- الشهادة (A4 أفقية) ---------- */
+  body.pc>*:not(#printcert){display:none!important}
+  body.pc #printcert{display:block!important;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
+  .pc-in{box-sizing:border-box;width:100%;height:188mm;overflow:hidden;border:8px double var(--brand-green);outline:3px solid var(--brand-gold);outline-offset:-16px;padding:7mm 14mm;text-align:center;color:var(--green-700);background:var(--brand-white);display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .pc-in .ch{text-align:center;margin:0 0 2mm}
+  .pc-in .ch img{display:block;margin:0 auto 1.5mm;width:auto;height:auto;max-height:24mm;max-width:60mm;border:0;border-radius:0}
+  .pc-in .ch .l1{font-weight:800;font-size:14pt;line-height:1.35}
+  .pc-in .ch .l2{font-size:12pt;line-height:1.35}
+  .pc-in .pt{font-weight:900;font-size:30pt;line-height:1.3;margin:3mm 0;color:var(--green-700)}
+  .pc-in p{font-size:13pt;line-height:1.5;margin:1.5mm 0;max-width:210mm}
+  .pc-in .nm{font-size:22pt;font-weight:800;line-height:1.4;border-bottom:3px solid var(--brand-gold);padding:0 10mm;margin:2.5mm 0}
+  .pc-in .lv{font-weight:800;font-size:22pt;line-height:1.3;color:var(--gold-700);margin:1.5mm 0}
+  .pc-in .sigs{display:flex;gap:16mm;align-items:flex-end;justify-content:center;margin-top:7mm;width:100%}
+  .pc-in .sigs>div{min-width:48mm;font-size:12pt}
+  .pc-in .sigs hr{margin:0 0 1.5mm;border:0;border-top:1.5px solid var(--green-700)}
+  .pc-in .stamp{width:26mm;height:26mm;min-width:0;border:2px dashed var(--ink-400);border-radius:50%;display:grid;place-items:center;color:var(--ink-400);font-size:9pt}
+  .pc-in .mt{margin-top:4mm;color:var(--gold-700);font-weight:700}
+
+  /* ---------- صفحات المطبوعات ---------- */
+  body.pk>*:not(#printkit){display:none!important}
+  body.pk #printkit{display:block!important}
+  .kpage.rpp{break-after:auto;page-break-after:auto;height:268mm;overflow:hidden}
+  .kt{font-weight:900;font-size:1.8rem;text-align:center;margin:0 0 .6rem;color:var(--green-700)}
+  .kn{text-align:center;margin:0 0 .6rem}
+  .vcol{display:grid;grid-template-rows:repeat(3,1fr);gap:8mm;height:250mm}
+  .vgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:6mm;height:245mm}
+  .vc{display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:16px;color:#fff;text-align:center;border:3px solid var(--green-900)}
+  .vc.g{background:var(--brand-green)}.vc.o{background:var(--brand-gold);color:var(--green-900)}.vc.r{background:var(--red-500)}
+  .vc .vt{font-weight:900;font-size:3.2rem;line-height:1.3}
+  .vgrid .vc .vt{font-size:2.2rem}
+  .vc .vs{font-size:1.3rem}
+  .rpp .kt{font-size:20pt;margin:0 0 1.5mm}
+  .rpp .kn{font-size:10pt;margin:0 0 3mm}
+  .rpg{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr);gap:4mm;height:243mm}
+  .rpc{box-sizing:border-box;border:2px dashed var(--green-700);border-radius:3mm;padding:3mm 4mm;break-inside:avoid;position:relative;font-size:11.5pt;line-height:1.45;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
+  .rpc h2{font-weight:800;font-size:16pt;line-height:1.3;margin:0 0 1mm;padding-inline-end:9mm;color:var(--green-700)}
+  .rpc p{margin:0 0 1mm}.rpc ul{margin:0;padding-inline-start:5mm}.rpc li{margin:0}
+  .rpn{position:absolute;inset-inline-end:3mm;top:3mm;width:7mm;height:7mm;border-radius:50%;background:var(--brand-gold);color:var(--green-900);display:grid;place-items:center;font-weight:800;font-size:11pt}
+
+  /* ---------- الملصق ---------- */
+  .poster{text-align:center;display:flex;flex-direction:column;align-items:center;min-height:270mm}
+  .pbn{width:62mm;height:62mm;margin:2mm auto 0}
+  .pth{font-weight:900;font-size:3.2rem;margin:.8rem 0 .2rem;color:var(--green-700)}
+  .psub{font-size:1.25rem;max-width:34em;margin:.2rem 0 1rem}
+  .pqs{display:flex;gap:14mm;justify-content:center;align-items:flex-start;margin:.6rem 0}
+  .pq{width:62mm;font-weight:800;font-size:1rem}.pq svg{width:100%;height:auto;display:block;border:2px solid var(--green-700);margin-bottom:.3rem}
+  .pnote{font-size:1.2rem;font-weight:800;margin:.4rem 0}
+  .pnum{margin-top:auto;background:var(--brand-green);color:#fff;border-radius:12px;padding:.5rem 1rem;font-size:1.1rem}
+  .psig{display:flex;gap:.6rem;align-items:center;margin-top:.8rem;font-size:.9rem}.psig img{height:44px;width:auto}
+
+  /* ---------- التقرير ---------- */
+  .rep{font-size:.9rem;line-height:1.5}
+  .rep .kt{font-size:1.5rem}
+  .rep .tbl{min-width:0;font-size:.95rem}
+  .rep .tbl th{background:var(--cream-200);color:var(--ink-900);width:20%}
+  .rep .tbl th,.rep .tbl td{padding:.25rem .5rem}
+  .rep h3{font-size:1.1rem;margin:.8rem 0 .2rem;color:var(--green-700)}
+  .rep .rnotes{min-height:22mm;border:1px solid var(--ink-400);padding:.4rem .6rem;border-radius:6px}
+  .sigs2{display:flex;justify-content:space-around;margin-top:20mm}.sigs2>div{min-width:60mm;text-align:center}
+  .rep .sigs2{margin-top:10mm}
+  .rsum{break-inside:avoid}
+
+  /* ---------- ميثاق الأسرة ---------- */
+  .kpage.pact{height:268mm;overflow:hidden;break-after:auto;page-break-after:auto;font-size:13.5pt;line-height:1.7}
+  .pact .kt{font-size:30pt;margin:0 0 2mm;text-align:center}
+  .pact h2{font-weight:800;font-size:19pt;color:var(--green-700);margin:7mm 0 2mm}
+  .pact .pn{font-size:11.5pt;text-align:center;margin:0 0 5mm}
+  .pact .pnames{display:flex;justify-content:space-between;gap:6mm;margin:0 0 3mm;font-size:13pt}
+  .pact .pl{display:inline-block;min-width:26mm;border-bottom:1.5px solid var(--green-700);height:1em;vertical-align:baseline;margin:0 1mm}
+  .pact .pnames .pl{min-width:34mm}
+  .pact ul.pck{list-style:none;padding:0;margin:0}
+  .pact ul.pck li{position:relative;padding-inline-start:9mm;margin:3mm 0}
+  .pact ul.pck li::before{content:"";position:absolute;inset-inline-start:0;top:.35em;width:5mm;height:5mm;border:1.8px solid var(--green-700);border-radius:1.2mm}
+  .pact .pnum{margin:8mm 0 4mm;padding:3.5mm 4mm;border:2px dashed var(--green-700);border-radius:3mm;text-align:center;font-size:13pt}
+  .pact .sigs2{margin-top:14mm}
+
+  /* ---------- طباعة صفحات البرنامج (دليل الأولياء، المنشّط، المراجع) ---------- */
+  body.pd .sidebar,body.pd .topbar,body.pd .site-footer,body.pd .track-wrap,body.pd .fab,body.pd .scrl,body.pd .fnav,body.pd .pathbar,body.pd .noprint{display:none!important}
+  body.pd .app{display:block}
+  body.pd .page{padding:0;max-width:none}
+  body.pd .card,body.pd .info,body.pd .rule{box-shadow:none}
+  body.pd{color:#000}
+  body.pd .tbl thead th{background:var(--cream-200);color:#000}
+  .modal,.vintro,.ctboard,.confetti,.scrl,.fnav{display:none!important}
+}

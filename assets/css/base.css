@@ -1,0 +1,62 @@
+/* =====================================================================
+   base.css — الأساس: إعادة الضبط، الخط، سلّم الطباعة (Typography)، الوصولية
+   ===================================================================== */
+@font-face{font-family:'OfflineAr';font-weight:400;font-display:swap;src:url(../fonts/offline-ar-400.woff) format('woff')}
+@font-face{font-family:'OfflineAr';font-weight:700 900;font-display:swap;src:url(../fonts/offline-ar-700.woff) format('woff')}
+
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:100%;-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--topbar-h) + 16px);color-scheme:light}
+html.stage{font-size:125%}
+html,body{margin:0}
+body{background:var(--surface-page);color:var(--text-body);font-family:var(--font);font-size:var(--fs-body);font-weight:var(--fw-regular);line-height:var(--lh-body);min-height:100vh;text-rendering:optimizeLegibility}
+body.nosc{overflow:hidden}
+[hidden]{display:none!important}
+img,svg{max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+::selection{background:var(--gold-200);color:var(--ink-900)}
+
+/* ---------- سلّم الطباعة ---------- */
+h1,h2,h3,h4{font-family:var(--font);color:var(--text-strong);margin:0;letter-spacing:0}
+h1,.h1{font-size:var(--fs-h1);font-weight:var(--fw-black);line-height:var(--lh-tight)}
+h2,.h2{font-size:var(--fs-h2);font-weight:var(--fw-black);line-height:var(--lh-tight);margin:.1rem 0 .4rem}
+h3,.h3{font-size:var(--fs-h3);font-weight:var(--fw-bold);line-height:var(--lh-snug);margin:1.4rem 0 .4rem;color:var(--green-700)}
+h4,.h4{font-size:var(--fs-h4);font-weight:var(--fw-bold);line-height:var(--lh-snug)}
+.display{font-size:var(--fs-display);font-weight:var(--fw-black);line-height:1.2}
+p{margin:0 0 .8rem}
+.lead{font-size:1.08rem;color:var(--text-muted);max-width:var(--reading-max);margin:0 0 1.2rem}
+.caption,small{font-size:var(--fs-caption);font-weight:var(--fw-medium);color:var(--text-muted)}
+.warn{font-size:var(--fs-small);color:var(--text-muted)}
+b,strong{font-weight:var(--fw-bold);color:var(--text-strong)}
+a{color:var(--text-link);text-underline-offset:3px}
+a:hover{color:var(--green-800)}
+ul,ol{padding-inline-start:1.3rem;margin:.3rem 0 .9rem}
+li{margin:.2rem 0}
+hr{border:0;border-top:var(--bw) solid var(--line);margin:1.2rem 0}
+q{quotes:"«" "»"}
+.num{font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
+
+/* ---------- وصولية ---------- */
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;inset-inline-start:-999px;top:0;z-index:200;background:var(--brand-gold);color:var(--green-900);padding:.6rem 1.1rem;font-weight:800;border-radius:0 0 var(--r-md) var(--r-md)}
+.skip:focus{inset-inline-start:1rem}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.noprint{}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- أيقونات موحدة ---------- */
+.ic{width:1.25em;height:1.25em;flex:none;display:inline-block;vertical-align:-.22em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.ic.sm{width:1em;height:1em}.ic.lg{width:1.6em;height:1.6em}.ic.xl{width:2.4em;height:2.4em}.ic.fill{fill:currentColor;stroke:none}
+
+/* ---------- عناصر الإدخال الأساسية ---------- */
+input[type=text],input[type=date],input[type=search],input[type=url],input:not([type]),select,textarea{
+  width:auto;max-width:100%;background:var(--surface-card);color:var(--text-strong);border:var(--bw) solid var(--line-strong);
+  border-radius:var(--r-md);padding:.55rem .85rem;min-height:44px;transition:border-color var(--t-fast),box-shadow var(--t-fast)}
+textarea{width:100%;min-height:96px;resize:vertical;line-height:1.7}
+input::placeholder,textarea::placeholder{color:var(--ink-400)}
+input:hover,select:hover,textarea:hover{border-color:var(--green-400)}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--brand-green);box-shadow:0 0 0 3px var(--gold-200)}
+input[type=checkbox],input[type=radio]{width:1.15rem;height:1.15rem;accent-color:var(--brand-green);flex:none}
+input[type=range]{accent-color:var(--brand-green);width:100%}
+select{padding-inline-end:2rem}
+label{cursor:pointer}

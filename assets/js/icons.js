@@ -1,0 +1,75 @@
+/* =====================================================================
+   icons.js — نظام الأيقونات الموحد (شبكة 24×24، خط 1.75، أطراف مستديرة)
+   الاستعمال في القوالب:  ico('home')  أو  ico('check','sm')
+   لإضافة أيقونة: أضف مدخلًا في ICONS ثم استعمل اسمها (يظهر تلقائيًا في design-system.html).
+   ===================================================================== */
+const ICONS={
+ 'home':'<path d="M3.5 11 12 3.5l8.5 7.5"/><path d="M5.5 9.8V20h4.5v-5.5h4V20h4.5V9.8"/>',
+ 'compass':'<circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2 5.6-5.6 2 2-5.6z"/>',
+ 'trophy':'<path d="M7.5 4h9v5.2a4.5 4.5 0 0 1-9 0z"/><path d="M7.5 6H4.2v1.6a3.2 3.2 0 0 0 3.3 3.2"/><path d="M16.5 6h3.3v1.6a3.2 3.2 0 0 1-3.3 3.2"/><path d="M12 13.8V17"/><path d="M8.5 20.5h7"/><path d="M9.8 17h4.4v3.5H9.8z"/>',
+ 'users':'<circle cx="9.5" cy="8" r="3.2"/><path d="M3.5 19.5v-1a4.5 4.5 0 0 1 4.5-4.5h3a4.5 4.5 0 0 1 4.5 4.5v1"/><path d="M16.2 4.9a3.2 3.2 0 0 1 0 6.2"/><path d="M18 14.2a4.5 4.5 0 0 1 2.5 4.3v1"/>',
+ 'clipboard':'<rect x="5" y="4" width="14" height="17" rx="2.2"/><path d="M9 4V3h6v1"/><path d="M9 11h6M9 15h4"/>',
+ 'clipboard-check':'<rect x="5" y="4" width="14" height="17" rx="2.2"/><path d="M9 4V3h6v1"/><path d="m9 13.2 2.1 2.1 4-4.2"/>',
+ 'life-buoy':'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.6"/><path d="m5.7 5.7 3.8 3.8M14.5 14.5l3.8 3.8M18.3 5.7l-3.8 3.8M9.5 14.5l-3.8 3.8"/>',
+ 'printer':'<path d="M7 8.5V3.5h10v5"/><rect x="3.5" y="8.5" width="17" height="8" rx="2"/><path d="M7 13.5h10v7H7z"/>',
+ 'chart':'<path d="M4 20.5V4"/><path d="M4 20.5h16"/><path d="M8 17v-5M12.5 17V8M17 17v-8"/>',
+ 'search':'<circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.6 15.6 5 5"/>',
+ 'bell':'<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.6 2H4.4z"/><path d="M10 21h4"/>',
+ 'menu':'<path d="M4 7h16M4 12h16M4 17h16"/>',
+ 'x':'<path d="m6 6 12 12M18 6 6 18"/>',
+ 'chevron-l':'<path d="m14.5 5.5-6.5 6.5 6.5 6.5"/>',
+ 'chevron-r':'<path d="m9.5 5.5 6.5 6.5-6.5 6.5"/>',
+ 'chevron-u':'<path d="m5.5 14.5 6.5-6.5 6.5 6.5"/>',
+ 'chevron-d':'<path d="m5.5 9.5 6.5 6.5 6.5-6.5"/>',
+ 'arrow-l':'<path d="M20 12H5M11 5.5 4.5 12l6.5 6.5"/>',
+ 'arrow-r':'<path d="M4 12h15M13 5.5l6.5 6.5-6.5 6.5"/>',
+ 'check':'<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+ 'check-circle':'<circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.8 2.8L16.2 9.5"/>',
+ 'alert':'<path d="M12 3.6 2.8 19.8h18.4z"/><path d="M12 10v4.4M12 17.2v.3"/>',
+ 'info':'<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.3"/>',
+ 'shield':'<path d="M12 3 4.5 6v5.6c0 4.6 3.1 8 7.5 9.4 4.4-1.4 7.5-4.8 7.5-9.4V6z"/>',
+ 'shield-check':'<path d="M12 3 4.5 6v5.6c0 4.6 3.1 8 7.5 9.4 4.4-1.4 7.5-4.8 7.5-9.4V6z"/><path d="m8.6 12.2 2.4 2.4 4.5-4.6"/>',
+ 'pill':'<path d="M10.6 20.4a4.9 4.9 0 0 1-6.9-6.9l9.8-9.8a4.9 4.9 0 0 1 6.9 6.9z"/><path d="m8.6 8.6 6.8 6.8"/>',
+ 'bulb':'<path d="M9.2 18h5.6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.8.6 1.1 1.4 1.1 2.2h5c0-.8.3-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>',
+ 'swap':'<path d="M6.5 7.5h11.5M14.5 4l3.5 3.5-3.5 3.5"/><path d="M17.5 16.5H6M9.5 13 6 16.5 9.5 20"/>',
+ 'help-circle':'<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.7 2.4c-.8.4-1.3 1-1.3 1.9"/><path d="M12 17v.3"/>',
+ 'asterisk':'<path d="M12 3.5v6M12 14.5v6M3.5 12h6M14.5 12h6M6 6l4.2 4.2M13.8 13.8 18 18M18 6l-4.2 4.2M10.2 13.8 6 18"/>',
+ 'ban':'<circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/>',
+ 'mountain':'<path d="m2.8 19.5 6.2-11 4 6.6 2.9-4.1 5.3 8.5z"/>',
+ 'smartphone':'<rect x="7" y="2.8" width="10" height="18.4" rx="2.4"/><path d="M11 18.2h2"/>',
+ 'eye':'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/>',
+ 'heart':'<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>',
+ 'scale':'<path d="M12 4v16M7 20.5h10M4 7.5h16"/><path d="m6.5 7.5-3 6.7a3.2 3.2 0 0 0 6 0z"/><path d="m17.5 7.5-3 6.7a3.2 3.2 0 0 0 6 0z"/>',
+ 'activity':'<path d="M3 12.5h4l3-8 4 15 3-7h4"/>',
+ 'medical':'<path d="M9.2 3.5h5.6v5.7h5.7v5.6h-5.7v5.7H9.2v-5.7H3.5V9.2h5.7z"/>',
+ 'award':'<circle cx="12" cy="9" r="5.8"/><path d="m8.6 14 -1.4 7 4.8-3 4.8 3-1.4-7"/>',
+ 'star':'<path d="m12 3.2 2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+ 'play':'<circle cx="12" cy="12" r="9"/><path d="m10 8.4 5.4 3.6-5.4 3.6z"/>',
+ 'volume':'<path d="M4 9.5v5h3.6l4.9 3.8V5.7L7.6 9.5z"/><path d="M16 9.2a4 4 0 0 1 0 5.6M18.6 6.6a7.6 7.6 0 0 1 0 10.8"/>',
+ 'external':'<path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+ 'download':'<path d="M12 4v11M7.5 11 12 15.5 16.5 11M5 20h14"/>',
+ 'lock':'<rect x="5.5" y="10.5" width="13" height="10" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>',
+ 'phone':'<path d="M5.2 3.8h3.6l1.8 4.6-2.3 1.5a11 11 0 0 0 5.2 5.2l1.5-2.3 4.6 1.8v3.6a1.3 1.3 0 0 1-1.4 1.3A15.5 15.5 0 0 1 3.9 5.2a1.3 1.3 0 0 1 1.3-1.4z"/>',
+ 'plus':'<path d="M12 5v14M5 12h14"/>',
+ 'minus':'<path d="M5 12h14"/>',
+ 'refresh':'<path d="M20 11.5a8 8 0 1 0-1.7 5.2"/><path d="M20.5 4.5v6h-6"/>',
+ 'sliders':'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+ 'calendar':'<rect x="4" y="5.5" width="16" height="15" rx="2.2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
+ 'user':'<circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20.5v-1a5.5 5.5 0 0 1 5.5-5.5h3.4a5.5 5.5 0 0 1 5.5 5.5v1"/>',
+ 'file':'<path d="M6 3.5h8.5l4 4v13H6z"/><path d="M14 3.5v4.5h4.5M9 13h6M9 16.5h6"/>',
+ 'book':'<path d="M4 5.5A2 2 0 0 1 6 4h13v15H6a2 2 0 0 0-2 2z"/><path d="M4 19.5V5.5M8.5 8.5h7"/>',
+ 'zap':'<path d="M13 2.8 5 13.2h6l-1 8 8-10.4h-6z"/>',
+ 'map-pin':'<path d="M12 21s6.8-5.7 6.8-11A6.8 6.8 0 0 0 5.2 10c0 5.3 6.8 11 6.8 11z"/><circle cx="12" cy="10" r="2.4"/>',
+ 'facebook':'<path d="M14.2 8.2h2.6V4.4h-2.6a3.8 3.8 0 0 0-3.8 3.8v2.1H7.8v3.7h2.6V21h3.8v-7h2.7l.5-3.7h-3.2V8.6a.4.4 0 0 1 .4-.4z"/>',
+ 'sparkle':'<path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7z"/><path d="m18.5 16.5.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>',
+ 'layers':'<path d="m12 3.5 8.5 4.5-8.5 4.5L3.5 8z"/><path d="m3.5 12 8.5 4.5 8.5-4.5M3.5 16l8.5 4.5 8.5-4.5"/>',
+ 'hand':'<path d="M8 12.5V6.2a1.5 1.5 0 0 1 3 0V11"/><path d="M11 10.5V4.7a1.5 1.5 0 0 1 3 0V11"/><path d="M14 11V6.2a1.5 1.5 0 0 1 3 0v8.1c0 3.9-2.7 6.7-6.1 6.7-2.6 0-4.1-1.3-5.4-3.6L4 14.2a1.5 1.5 0 0 1 2.6-1.5L8 15"/>'
+};
+function ico(n,c){return '<svg class="ic'+(c?' '+c:'')+'" aria-hidden="true" focusable="false"><use href="#i-'+n+'"></use></svg>'}
+(function(){
+  var sp='<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>';
+  for(var k in ICONS)sp+='<symbol id="i-'+k+'" viewBox="0 0 24 24">'+ICONS[k]+'</symbol>';
+  sp+='</defs></svg>';
+  function put(){document.body.insertAdjacentHTML('afterbegin',sp)}
+  if(document.body)put();else document.addEventListener('DOMContentLoaded',put);
+})();

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>وعيي درعي — الوقاية من المخدرات والمهلوسات</title>
+<meta name="description" content="برنامج تحسيسي تفاعلي للوقاية من المخدرات والمهلوسات، موجّه للأطفال والشباب، من ديوان قطاع الشباب والرياضة.">
+<meta name="theme-color" content="#1a4731">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_DZ">
+<meta property="og:title" content="وعيي درعي — الوقاية من المخدرات والمهلوسات">
+<meta property="og:description" content="رحلة تفاعلية من 13 محطة، واختبار قبلي وبعدي، ومسابقة بين الفرق، وميثاق للأسرة، وشهادة.">
+<meta property="og:url" content="https://antaraabsi-svg.github.io/drugs-prevention/">
+<meta property="og:image" content="https://antaraabsi-svg.github.io/drugs-prevention/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<!--PWA-HEAD--><link rel="manifest" href="manifest.webmanifest"><!--/PWA-HEAD-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/print.css">
+</head>
+<body>
+<a class="skip" href="#app">تخطَّ إلى المحتوى</a>
+
+<div class="app">
+  <!-- ========== الشريط الجانبي ========== -->
+  <aside class="sidebar" id="sidebar" aria-label="القائمة الرئيسية">
+    <a class="sb-brand" href="#" data-act="mode" data-v="home" aria-label="الصفحة الرئيسية">
+      <img src="assets/img/logo-96.webp" srcset="assets/img/logo-96.webp 1x, assets/img/logo-192.webp 2x" width="64" height="64" alt="شعار ديوان قطاع الشباب والرياضة">
+      <span><b>وعيي درعي</b><small>الوقاية من المخدرات والمهلوسات</small></span>
+    </a>
+    <div class="sb-label">التعلّم</div>
+    <nav class="sb-nav" aria-label="التعلّم">
+      <button class="nav-item" id="tHome" data-act="mode" data-v="home" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>الرئيسية</button>
+      <button class="nav-item" id="tProg" data-act="mode" data-v="prog" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>الرحلة التعليمية</button>
+      <button class="nav-item" id="tCt" data-act="mode" data-v="contest" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg>المسابقة</button>
+    </nav>
+    <div class="sb-label">الدعم والمراجع</div>
+    <nav class="sb-nav" aria-label="الدعم والمراجع">
+      <button class="nav-item" id="tPar" data-act="mode" data-v="parents" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>دليل الأولياء</button>
+      <button class="nav-item" id="tRef" data-act="mode" data-v="ref" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-life-buoy"/></svg>المساعدة والقانون</button>
+    </nav>
+    <div class="sb-label">للمنشّط</div>
+    <nav class="sb-nav" aria-label="للمنشّط">
+      <button class="nav-item" id="tFac" data-act="mode" data-v="fac" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg>ورقة المنشّط</button>
+      <button class="nav-item" id="tKit" data-act="mode" data-v="kit" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-printer"/></svg>المطبوعات</button>
+      <button class="nav-item" id="tRep" data-act="mode" data-v="report" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>لوحة المنشّط</button>
+    </nav>
+    <details class="sb-tools">
+      <summary><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg>إعدادات العرض<svg class="ic chev sm" aria-hidden="true"><use href="#i-chevron-d"/></svg></summary>
+      <div class="optb" role="group" aria-label="خيارات العرض">
+        <button class="pill" id="bAbout" data-act="spopen" title="عرض الافتتاحية">عن البرنامج</button>
+        <button class="pill" id="bDz" data-act="tg" data-k="dz" aria-pressed="false" title="عرض رسائل المحادثة بالدارجة الجزائرية">الدارجة</button>
+        <button class="pill" id="bSnd" data-act="tg" data-k="snd" aria-pressed="false">الصوت</button>
+        <button class="pill" id="bShuf" data-act="tg" data-k="shuf" aria-pressed="true" title="خلط ترتيب الأسئلة والخيارات">ترتيب عشوائي</button>
+        <button class="pill" id="bHc" data-act="tg" data-k="hc" aria-pressed="false">تباين عالٍ</button>
+        <button class="pill" id="bFn" data-act="tg" data-k="fnotes" aria-pressed="false">ملاحظات المنشّط</button>
+        <button class="pill" id="bStage" data-act="tg" data-k="stage" aria-pressed="false" title="تكبير الخط للعرض أمام المجموعة">وضع العرض</button>
+        <button class="pill" id="bFsm" data-act="fs" data-d="-1" aria-label="تصغير الخط" title="تصغير الخط">أ−</button>
+        <button class="pill" id="bFsp" data-act="fs" data-d="1" aria-label="تكبير الخط" title="تكبير الخط">أ+</button>
+        <button class="pill" id="bReset"><svg class="ic sm" aria-hidden="true"><use href="#i-refresh"/></svg>إعادة البدء</button>
+      </div>
+    </details>
+    <div class="sb-foot">
+      <q>لنبني صروح الفكر، لا نكن معاول هدم</q>
+      <div class="stars" aria-hidden="true">★ ★ ★</div>
+    </div>
+  </aside>
+  <div class="drawer-back" id="drawerBack" data-act="drawer" aria-hidden="true"></div>
+
+  <!-- ========== العمود الرئيسي ========== -->
+  <div class="main-col">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" data-act="drawer" aria-label="فتح القائمة" aria-controls="sidebar" aria-expanded="false"><svg class="ic lg" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <img class="tb-logo" src="assets/img/logo-96.webp" width="40" height="40" alt="">
+      <nav class="crumbs" id="crumbs" aria-label="مسار التنقل"></nav>
+      <span class="tb-space"></span>
+      <div class="tb-actions">
+        <div class="search" id="gsWrap" role="search">
+          <button class="icon-btn gs-toggle" type="button" data-act="gstoggle" aria-label="بحث" aria-expanded="false"><svg class="ic lg" aria-hidden="true"><use href="#i-search"/></svg></button>
+          <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+          <input type="search" id="gs" data-act="gsq" placeholder="ابحث في البرنامج…" aria-label="بحث في البرنامج" autocomplete="off">
+          <div class="search-res" id="gsRes" hidden></div>
+        </div>
+        <div class="nf-wrap">
+          <button class="icon-btn" id="nfBtn" data-act="nf" aria-label="الإشعارات" aria-expanded="false"><svg class="ic lg" aria-hidden="true"><use href="#i-bell"/></svg><span class="nf-dot" id="nfDot" hidden>0</span></button>
+          <div class="nf-panel" id="nfPanel" hidden></div>
+        </div>
+        <button class="btn gold sm" data-act="hpopen"><svg class="ic" aria-hidden="true"><use href="#i-life-buoy"/></svg><span class="btn-label">أحتاج مساعدة</span></button>
+      </div>
+    </header>
+
+    <main class="page">
+      <nav class="track-wrap" aria-label="محطات الرحلة"><div class="track" id="track"></div></nav>
+      <section id="app" aria-live="polite" tabindex="-1">
+        <div class="skeleton sk-title"></div><div class="skeleton sk-line"></div><div class="skeleton sk-line" style="width:70%"></div><div class="skeleton sk-block"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="sf-in">
+        <div class="sf-brand">
+          <img src="assets/img/logo-96.webp" srcset="assets/img/logo-96.webp 1x, assets/img/logo-192.webp 2x" width="72" height="72" alt="شعار ديوان قطاع الشباب والرياضة">
+          <div><b>ديوان قطاع الشباب والرياضة</b><small>وعيي درعي · الوقاية من المخدرات والمهلوسات</small></div>
+        </div>
+        <div class="sf-slogan"><q>لنبني صروح الفكر، لا نكن معاول هدم</q><span class="stars" aria-hidden="true">★ ★ ★</span></div>
+        <div class="sf-links">
+          <a href="#" data-act="spopen">عن البرنامج</a>
+          <a href="#" data-act="hpopen">أحتاج مساعدة</a>
+          <a href="#" data-act="mode" data-v="ref">المساعدة والقانون</a>
+        </div>
+        <div class="sf-sig">
+          <div class="made"><span>إعداد وتصميم</span><img class="sigsm" src="assets/img/signature.jpg" alt="توقيع بن دوحة بوعلام"></div>
+          <a class="fbbtn sm" href="https://www.facebook.com/groups/www.diwan.js1236" target="_blank" rel="noopener noreferrer" aria-label="مجموعة ديوان قطاع الشباب والرياضة على فيسبوك"><svg class="ic fbi" aria-hidden="true"><use href="#i-facebook"/></svg><span>مجموعة الديوان على فيسبوك</span></a>
+          <div class="priv"><svg class="ic sm" aria-hidden="true"><use href="#i-lock"/></svg>لا يجمع هذا البرنامج بياناتك ولا يرسلها إلى أي خادم؛ تبقى نتائجك في جهازك.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ========== فيديو المدخل ========== -->
+<div class="vintro" id="vintro" role="dialog" aria-modal="true" aria-label="فيديو افتتاحي" hidden>
+ <video id="vvid" playsinline webkit-playsinline preload="auto"></video>
+ <button class="vi-btn" id="vsnd" data-act="vsound" hidden><svg class="ic" aria-hidden="true"><use href="#i-volume"/></svg>تشغيل الصوت</button>
+ <button class="vi-btn" id="vskip" data-act="vskip">تخطّي المقدمة<svg class="ic" aria-hidden="true"><use href="#i-chevron-l"/></svg></button>
+</div>
+
+<!-- ========== شاشة الدخول (الافتتاحية) ========== -->
+<div class="modal" id="splash" role="dialog" aria-modal="true" aria-labelledby="spT" hidden>
+ <div class="modal-card">
+  <div class="modal-head">
+   <img class="m-logo" src="assets/img/logo-256.webp" width="132" height="132" alt="شعار ديوان قطاع الشباب والرياضة">
+   <h2 id="spT">وعيي درعي</h2>
+   <p>برنامج تحسيسي تفاعلي للوقاية من المخدرات والمهلوسات</p>
+  </div>
+  <div class="modal-body">
+   <div class="m-div" aria-hidden="true">★ ★ ★</div>
+   <p class="m-p">حياتك أغلى من أي تجربة. في هذا البرنامج تتعلم كيف تفهم المخاطر، وكيف تقول «لا»، وكيف تحمي نفسك وأصدقاءك، وأين تجد المساعدة، بمواقف وأسئلة من واقعنا في الجزائر، ويرافقك فيه «سند».</p>
+   <div class="m-grid">
+    <div class="m-it"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg><b>الرحلة التعليمية</b><span>ثلاث عشرة محطة مع اختبار قبلي وبعدي وشارات وشهادة</span></div>
+    <div class="m-it"><svg class="ic" aria-hidden="true"><use href="#i-ban"/></svg><b>مهارات الرفض</b><span>مواقف تتدرب فيها على قول «لا» وطلب المساعدة</span></div>
+    <div class="m-it"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg><b>المسابقة والمطبوعات</b><span>مسابقة بين فرق، وبطاقات تصويت ولعب أدوار وملصق QR</span></div>
+    <div class="m-it"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg><b>دليل الأولياء</b><span>كيف نحاور أبناءنا ونحميهم ونتصرف عند الخطر</span></div>
+    <div class="m-it"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg><b>ورقة المنشّط والتقرير</b><span>توجيهات الحصة ولوحة نتائج جاهزة للطباعة</span></div>
+    <div class="m-it"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><b>المقدمة المرئية</b><span><button class="pill" data-act="invopen">شاهد المقدمة</button></span></div>
+   </div>
+   <div class="m-foot">
+   <label class="m-chk"><input type="checkbox" id="spNo"> لا تُظهر هذه الافتتاحية مرة أخرى</label>
+   <div class="m-act"><button class="btn gold lg" id="spGo" data-act="spclose">ابدأ البرنامج<svg class="ic" aria-hidden="true"><use href="#i-arrow-l"/></svg></button></div>
+   </div>
+   <div class="m-sig"><span>إعداد وتصميم</span><img class="sigsm" src="assets/img/signature.jpg" alt="توقيع بن دوحة بوعلام"></div>
+  </div>
+ </div>
+</div>
+
+<!-- ========== نافذة «أحتاج مساعدة» ========== -->
+<button class="fab" id="fab" data-act="hpopen" aria-label="أحتاج مساعدة"><svg class="ic lg" aria-hidden="true"><use href="#i-life-buoy"/></svg><span class="fabt">أحتاج مساعدة</span></button>
+<div class="modal help" id="helpdlg" role="dialog" aria-modal="true" aria-labelledby="hpT" hidden>
+ <div class="modal-card sm">
+  <button class="modal-x" id="hpX" data-act="hpclose" aria-label="إغلاق"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <div class="modal-head"><h2 id="hpT" style="font-size:1.8rem">أحتاج مساعدة</h2><p>إذا أخافك شيء أو عُرض عليك ما يؤذيك فأنت لست وحدك</p></div>
+  <div class="modal-body">
+   <ol class="hpsteps"><li><b>ارفض.</b> قل «لا» بوضوح، ولا تأخذ ولا تجرّب شيئًا.</li><li><b>ابتعد.</b> غادر المكان إلى مكان فيه كبار.</li><li><b>أخبر.</b> تحدث فورًا إلى شخص بالغ تثق به: أحد الوالدين أو المعلم أو المرشد.</li><li><b>بلّغ.</b> اتصل بالجهات المختصة، وفي الحالات الطارئة اتصل بالحماية المدنية.</li></ol>
+   <div class="hpnums"><a href="tel:1111"><b>1111</b><span>الرقم الأخضر (مجاني، ليلًا ونهارًا)</span></a><a href="tel:1548"><b>1548</b><span>الشرطة</span></a><a href="tel:1055"><b>1055</b><span>الدرك الوطني</span></a><a href="tel:14"><b>14</b><span>الحماية المدنية (الحالات الطارئة)</span></a></div>
+   <p class="hpnote">طلب المساعدة قوة، والعلاج المبكر ينجح.</p>
+  </div>
+ </div>
+</div>
+
+<!-- ========== عناصر عائمة ========== -->
+<nav class="fnav" id="fnav" aria-label="التنقل بين المحطات" hidden><button id="fnPrev" data-act="prev"><svg class="ic sm" aria-hidden="true"><use href="#i-chevron-r"/></svg>السابق</button><span class="fnp" id="fnPos"></span><button id="fnNext" data-act="next">التالي<svg class="ic sm" aria-hidden="true"><use href="#i-chevron-l"/></svg></button></nav>
+<div class="ctboard" id="ctboard" role="dialog" aria-modal="true" aria-label="الترتيب المباشر" hidden></div>
+<div class="scrl" id="scrl"><button id="sUp" data-act="stop" aria-label="إلى أعلى الصفحة" title="إلى الأعلى" hidden><svg class="ic" aria-hidden="true"><use href="#i-chevron-u"/></svg></button><button id="sDn" data-act="sbot" aria-label="إلى أسفل الصفحة" title="إلى الأسفل" hidden><svg class="ic" aria-hidden="true"><use href="#i-chevron-d"/></svg></button></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div id="printcert"></div><div id="printkit"></div>
+
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/qr.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<!--PWA-REG--><script src="assets/js/pwa.js"></script><!--/PWA-REG-->
+</body>
+</html>

@@ -1,0 +1,115 @@
+/* =====================================================================
+   layout.css — غلاف التطبيق: الشريط الجانبي، الرأس، العنوان الفتاتي، التذييل
+   RTL: الشريط الجانبي على اليمين تلقائيًا (أول عنصر في الشبكة)
+   ===================================================================== */
+.app{display:grid;grid-template-columns:var(--sidebar-w) minmax(0,1fr);min-height:100vh}
+.main-col{min-width:0;display:flex;flex-direction:column;background:var(--surface-page)}
+.page{width:100%;max-width:var(--content-max);margin:0 auto;padding:1.5rem clamp(1rem,3vw,2rem) 2.5rem;flex:1}
+
+/* ---------- الشريط الجانبي ---------- */
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--surface-strong);color:var(--text-on-dark);display:flex;flex-direction:column;z-index:var(--z-sidebar);scrollbar-width:thin;scrollbar-color:var(--green-500) transparent}
+.sb-brand{display:flex;align-items:center;gap:.85rem;padding:1.25rem 1.1rem 1.1rem;border-bottom:var(--bw) solid var(--line-on-dark);text-decoration:none;color:inherit}
+.sb-brand img{width:64px;height:64px;flex:none;display:block}
+.sb-brand b{display:block;color:var(--brand-white);font-size:1.25rem;font-weight:var(--fw-black);line-height:1.25}
+.sb-brand small{display:block;color:var(--gold-300);font-size:.78rem;line-height:1.4;font-weight:var(--fw-medium)}
+.sb-label{font-size:.72rem;font-weight:var(--fw-bold);letter-spacing:.04em;color:var(--green-300);padding:1rem 1.3rem .35rem}
+.sb-nav{display:flex;flex-direction:column;gap:2px;padding:.4rem .7rem}
+.nav-item{position:relative;display:flex;align-items:center;gap:.75rem;width:100%;min-height:44px;padding:.5rem .85rem;border:0;border-radius:var(--r-md);background:transparent;color:var(--green-100);font-weight:var(--fw-medium);font-size:.97rem;text-align:start;transition:background var(--t-fast),color var(--t-fast)}
+.nav-item .ic{color:var(--green-300);transition:color var(--t-fast)}
+.nav-item:hover{background:rgba(255,255,255,.07);color:var(--brand-white)}
+.nav-item[aria-pressed="true"]{background:rgba(201,153,58,.16);color:var(--brand-white);font-weight:var(--fw-bold)}
+.nav-item[aria-pressed="true"]::before{content:"";position:absolute;inset-inline-start:-.7rem;top:20%;bottom:20%;width:4px;border-radius:0 4px 4px 0;background:var(--brand-gold)}
+.nav-item[aria-pressed="true"] .ic{color:var(--brand-gold)}
+.nav-item .nbadge{margin-inline-start:auto;background:var(--brand-gold);color:var(--green-900);border-radius:var(--r-pill);font-size:.72rem;font-weight:var(--fw-black);padding:0 .5rem;line-height:1.5}
+.sb-tools{margin:.4rem .7rem 0;border:var(--bw) solid var(--line-on-dark);border-radius:var(--r-md)}
+.sb-tools>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.6rem;padding:.6rem .85rem;color:var(--green-100);font-weight:var(--fw-bold);font-size:.9rem}
+.sb-tools>summary::-webkit-details-marker{display:none}
+.sb-tools>summary .chev{margin-inline-start:auto;transition:transform var(--t-base)}
+.sb-tools[open]>summary .chev{transform:rotate(180deg)}
+.optb{display:flex;flex-wrap:wrap;gap:.4rem;padding:.2rem .7rem .8rem}
+.optb .pill{background:transparent;color:var(--green-100);border-color:var(--line-on-dark);font-size:.82rem;padding:.2rem .7rem;min-height:34px}
+.optb .pill:hover{background:rgba(255,255,255,.08)}
+.optb .pill[aria-pressed="true"]{background:var(--brand-gold);border-color:var(--brand-gold);color:var(--green-900)}
+.optb .pill:disabled{opacity:.35;cursor:default}
+.sb-foot{margin-top:auto;padding:1rem 1.1rem 1.2rem;border-top:var(--bw) solid var(--line-on-dark);text-align:center}
+.sb-foot q{display:block;color:var(--gold-300);font-weight:var(--fw-bold);font-size:.9rem;line-height:1.7}
+.sb-foot .stars{margin-top:.4rem;color:var(--brand-gold);letter-spacing:.35em;font-size:.7rem}
+
+/* ---------- الرأس العلوي ---------- */
+.topbar{position:sticky;top:0;z-index:var(--z-topbar);height:var(--topbar-h);display:flex;align-items:center;gap:.75rem;padding:0 clamp(1rem,3vw,2rem);background:rgba(255,255,255,.96);border-bottom:var(--bw) solid var(--line);backdrop-filter:saturate(1.2) blur(6px)}
+.icon-btn.menu-btn{display:none}
+.icon-btn.gs-toggle{display:none}
+.tb-logo{display:none;width:40px;height:40px}
+.crumbs{display:flex;align-items:center;gap:.15rem;min-width:0;font-size:.88rem;color:var(--text-muted);overflow:hidden;white-space:nowrap}
+.crumbs button,.crumbs span{background:none;border:0;padding:.2rem .35rem;border-radius:var(--r-sm);color:inherit;font-size:inherit;font-weight:var(--fw-medium)}
+.crumbs button:hover{background:var(--surface-sunken);color:var(--green-700)}
+.crumbs .sep{display:inline-flex;color:var(--ink-400)}
+.crumbs [aria-current="page"]{color:var(--text-strong);font-weight:var(--fw-bold);overflow:hidden;text-overflow:ellipsis}
+.tb-space{flex:1}
+.tb-actions{display:flex;align-items:center;gap:.5rem}
+
+/* ---------- التذييل ---------- */
+.site-footer{background:var(--surface-sunken);border-top:3px solid var(--brand-gold);padding:2rem clamp(1rem,3vw,2rem) 5.5rem;margin-top:auto}
+.sf-in{max-width:var(--content-max);margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem 2rem;align-items:center}
+.sf-brand{display:flex;align-items:center;gap:.9rem}
+.sf-brand img{width:72px;height:72px}
+.sf-brand b{display:block;font-size:1.05rem}
+.sf-brand small{display:block}
+.sf-slogan{text-align:center;color:var(--green-700);font-weight:var(--fw-black);font-size:1.25rem;line-height:1.7}
+.sf-slogan q::before,.sf-slogan q::after{color:var(--brand-gold)}
+.sf-slogan .stars{display:block;color:var(--brand-gold);letter-spacing:.5em;font-size:.7rem;margin-top:.2rem}
+.sf-links{display:flex;flex-wrap:wrap;gap:.4rem .9rem;justify-content:flex-end}
+.sf-links a{font-size:.88rem;font-weight:var(--fw-medium);text-decoration:none}
+.sf-sig{display:flex;align-items:center;gap:.7rem;grid-column:1/-1;border-top:var(--bw) solid var(--line);padding-top:1rem;flex-wrap:wrap;justify-content:space-between}
+.sf-sig .made{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-muted)}
+.sigsm{height:46px;width:auto;background:#fff;border:var(--bw) solid var(--brand-gold);border-radius:var(--r-sm);padding:2px 10px}
+.priv{display:flex;align-items:center;gap:.4rem;font-size:.82rem;color:var(--text-muted)}
+.fbbtn{display:inline-flex;align-items:center;gap:.5rem;background:var(--brand-green);color:#fff;text-decoration:none;font-weight:var(--fw-bold);border-radius:var(--r-pill);padding:.4rem 1rem;font-size:.85rem;line-height:1.5;transition:background var(--t-fast)}
+.fbbtn:hover{background:var(--green-800);color:#fff}
+.fbbtn.sm{font-size:.82rem;padding:.3rem .8rem}
+
+/* ---------- الطبقات العائمة ---------- */
+.drawer-back{position:fixed;inset:0;background:rgba(10,27,19,.55);z-index:calc(var(--z-sidebar) - 1);opacity:0;pointer-events:none;transition:opacity var(--t-base)}
+.fab{position:fixed;inset-inline-start:max(14px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));z-index:var(--z-fab);display:none;align-items:center;justify-content:center;gap:.45rem;min-width:52px;height:52px;padding:0 1rem;background:var(--brand-gold);color:var(--green-900);border:0;border-radius:var(--r-pill);font-weight:var(--fw-black);box-shadow:var(--sh-3)}
+.scrl{position:fixed;inset-inline-end:max(14px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:var(--z-scrl);display:flex;flex-direction:column;gap:.5rem}
+.scrl button{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:var(--bw) solid var(--green-700);background:var(--brand-white);color:var(--green-700);box-shadow:var(--sh-2);transition:background var(--t-fast),color var(--t-fast)}
+.scrl button:hover{background:var(--brand-green);color:#fff}
+.fnav{position:fixed;inset-inline:0;bottom:max(16px,env(safe-area-inset-bottom));margin:auto;width:max-content;max-width:calc(100vw - 150px);z-index:var(--z-fnav);display:flex;align-items:center;gap:.3rem;background:var(--brand-green);border:2px solid var(--brand-gold);border-radius:var(--r-pill);padding:.25rem .4rem;box-shadow:var(--sh-3)}
+.fnav button{display:inline-flex;align-items:center;gap:.3rem;border:0;background:transparent;color:#fff;font-weight:var(--fw-bold);font-size:.92rem;padding:.4rem .85rem;border-radius:var(--r-pill);white-space:nowrap}
+.fnav button:hover:not(:disabled){background:var(--green-600)}
+.fnav button:disabled{opacity:.35;cursor:default}
+.fnav .fnp{color:var(--gold-300);font-weight:var(--fw-black);font-size:.88rem;min-width:3.6rem;text-align:center}
+.toast{position:fixed;inset-inline:0;bottom:max(80px,env(safe-area-inset-bottom));margin:auto;width:max-content;max-width:90vw;z-index:var(--z-toast);background:var(--brand-green);color:#fff;border:2px solid var(--brand-gold);border-radius:var(--r-pill);padding:.55rem 1.3rem;font-weight:var(--fw-bold);box-shadow:var(--sh-3)}
+body{padding-bottom:0}
+
+/* ---------- الاستجابة ---------- */
+@media (max-width:1023px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .sidebar{position:fixed;inset-block:0;inset-inline-start:0;width:min(86vw,320px);transform:translateX(105%);transition:transform var(--t-base) var(--ease);box-shadow:var(--sh-3)}
+  [dir="rtl"] .sidebar{transform:translateX(105%)}
+  body.drawer-open .sidebar{transform:none}
+  body.drawer-open .drawer-back{opacity:1;pointer-events:auto}
+  body.drawer-open{overflow:hidden}
+  .icon-btn.menu-btn{display:inline-grid}
+  .tb-logo{display:block}
+}
+@media (max-width:760px){
+  .tb-logo{display:none}
+  .icon-btn.gs-toggle{display:inline-grid}
+  .search{width:auto}
+  .search>.ic{display:none}
+  .search input{display:none}
+  .search.open input{display:block;position:fixed;inset-inline:.6rem;top:calc((var(--topbar-h) - 44px)/2);width:auto;z-index:calc(var(--z-topbar) + 5);padding-inline-start:1rem;background:#fff;border:2px solid var(--brand-green);min-height:44px;box-shadow:var(--sh-3)}
+  .search.open .search-res{position:fixed;inset-inline:.6rem;top:calc(var(--topbar-h) + 4px);z-index:calc(var(--z-topbar) + 5)}
+  .sf-in{grid-template-columns:1fr;text-align:center}
+  .sf-brand,.sf-links,.sf-sig{justify-content:center}
+  .topbar{gap:.4rem}
+  .tb-actions .btn-label{display:none}
+}
+@media (max-width:520px){
+  .page{padding-top:1rem}
+  .crumbs{flex:1}
+  .crumbs button,.crumbs .sep{display:none}
+  .crumbs [aria-current="page"]{font-size:.95rem}
+}
+@media print{.sidebar,.topbar,.site-footer,.fab,.scrl,.fnav,.drawer-back,.toast{display:none!important}}
