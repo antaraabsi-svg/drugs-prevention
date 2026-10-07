@@ -66,6 +66,10 @@
 | Charts / Progress | `.chart` `.cols-chart` `.hbars` `.progress` | components.css |
 | Stepper (محطات الرحلة) | `.track` `.node` | pages.css |
 | Toast | `.toast` | layout.css |
+| معاينة البطاقة (Canvas) | `.studio-grid` `.studio-preview` | pages.css |
+| عدّاد الاستطلاع | `.pcounts` `.pcount` | pages.css |
+| ساعة الحصة ومفاتيح النشاط | `.live-clock` `.phase-btns` `.phase` | pages.css |
+| قائمة الأسئلة | `.qlist` | pages.css |
 
 ## 7) الأيقونات
 `assets/js/icons.js` — 60 أيقونة بخط 1.75 على شبكة 24px. في القوالب: `ico('home')` أو `ico('check','sm')`. لإضافة أيقونة: أضف مدخلًا في `ICONS` فتظهر تلقائيًا في صفحة نظام التصميم.

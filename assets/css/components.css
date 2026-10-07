@@ -82,6 +82,9 @@ button.chip{cursor:pointer}button.chip:hover{border-color:var(--green-600)}
 /* ---------- Form ---------- */
 .field{display:grid;gap:.35rem;margin:0 0 .9rem}
 .field>span,.field>label{font-weight:var(--fw-bold);font-size:.9rem;color:var(--green-800)}
+.field{min-width:0}
+.field>*{min-width:0;max-width:100%}
+.field>select{width:100%;text-overflow:ellipsis}
 .field .hint{font-weight:var(--fw-regular);font-size:.8rem;color:var(--text-muted)}
 .field.err input{border-color:var(--danger);box-shadow:0 0 0 3px var(--red-100)}
 .field .errmsg{color:var(--danger);font-size:.82rem;font-weight:var(--fw-medium)}

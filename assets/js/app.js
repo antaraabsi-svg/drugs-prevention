@@ -268,6 +268,7 @@ function refView(){
    <tr><td><b>الرقم الأخضر 1111</b></td><td>للتبليغ والمساعدة، وهو الرقم الذي اعتمدته وزارة التربية الوطنية للتبليغ عن المخدرات في الوسط المدرسي.</td></tr>
    <tr><td><b>الشرطة 1548 · الدرك 1055</b></td><td>للتبليغ عن ترويج أو تهديد أو ضغط. وللدرك الوطني شكوى مسبقة عبر الإنترنت على ppgn.mdn.dz، والموقع الرسمي للأمن الوطني algeriepolice.dz.</td></tr>
    <tr><td><b>الحماية المدنية 14</b></td><td>للحالات الطارئة فقط (فقدان وعي، صعوبة تنفس، ارتباك شديد).</td></tr></tbody></table></div>
+  ${locForm()}
   <div class="refs">المصادر: وزارة الصحة (بيان نشرته صحيفة البلاد عن المراكز الوسيطة)؛ موقع الديوان الوطني لمكافحة المخدرات وإدمانها؛ موقعا الدرك الوطني والأمن الوطني؛ الرقم 1111 كما اعتمدته وزارة التربية الوطنية.</div>
 
   ${T('القانون والمخدرات','r-law')}
@@ -318,7 +319,7 @@ function drawTrack(){
 }
 function syncBar(){
   const tw=document.querySelector('.track-wrap');if(tw)tw.hidden=S.mode!=='prog';
-  const map={home:'#tHome',prog:'#tProg',contest:'#tCt',parents:'#tPar',fac:'#tFac',ref:'#tRef',kit:'#tKit',report:'#tRep'};
+  const map={studio:'#tStudio',live:'#tLive',pulse:'#tPulse',home:'#tHome',prog:'#tProg',contest:'#tCt',parents:'#tPar',fac:'#tFac',ref:'#tRef',kit:'#tKit',report:'#tRep'};
   Object.keys(map).forEach(m=>{const e=$(map[m]);if(e)e.setAttribute('aria-pressed',S.mode===m)});
   [['dz','#bDz'],['snd','#bSnd'],['shuf','#bShuf'],['hc','#bHc'],['fnotes','#bFn'],['stage','#bStage']].forEach(([k,id])=>{const e=$(id);if(e)e.setAttribute('aria-pressed',!!S[k])});
   const de=document.documentElement;
@@ -329,7 +330,7 @@ function syncBar(){
 }
 /* ---------- الغلاف: مسار التنقل، الدرج الجانبي، البحث، الإشعارات ---------- */
 const crumbs=$('#crumbs'),menuBtn=$('#menuBtn'),gsRes=$('#gsRes'),nfPanel=$('#nfPanel');
-const MODE_LABEL={home:'الرئيسية',prog:'الرحلة التعليمية',contest:'المسابقة',parents:'دليل الأولياء',fac:'ورقة المنشّط',ref:'المساعدة والقانون',kit:'المطبوعات',report:'لوحة المنشّط'};
+const MODE_LABEL={home:'الرئيسية',prog:'الرحلة التعليمية',contest:'المسابقة',studio:'استوديو رسالتي',parents:'دليل الأولياء',ref:'المساعدة والقانون',fac:'ورقة المنشّط',live:'إدارة الحصة',pulse:'نبض الصف',kit:'المطبوعات',report:'لوحة المنشّط'};
 function shellSync(){
   const m=S.mode,parts=[];
   if(m==='home')parts.push({t:MODE_LABEL.home,cur:true});
@@ -352,7 +353,7 @@ function toggleDrawer(){const o=document.body.classList.toggle('drawer-open');me
 const arNorm=s=>String(s||'').replace(/[\u064B-\u0652\u0640]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
 function searchIndex(){
   const out=[];
-  Object.keys(MODE_LABEL).forEach(m=>out.push({t:MODE_LABEL[m],s:'قسم',ic:{home:'home',prog:'compass',contest:'trophy',parents:'users',fac:'clipboard',ref:'life-buoy',kit:'printer',report:'chart'}[m],k:MODE_LABEL[m],run:()=>{S.mode=m;render(true)}}));
+  Object.keys(MODE_LABEL).forEach(m=>out.push({t:MODE_LABEL[m],s:'قسم',ic:{home:'home',prog:'compass',contest:'trophy',studio:'sparkle',parents:'users',fac:'clipboard',live:'clock',pulse:'activity',ref:'life-buoy',kit:'printer',report:'chart'}[m],k:MODE_LABEL[m],run:()=>{S.mode=m;render(true)}}));
   ST.forEach((s,i)=>out.push({t:s.n,s:'محطة',ic:s.ic,k:s.n,run:()=>go(i)}));
   [['أين أطلب المساعدة؟','r-help','مركز علاج الإدمان الرقم الأخضر 1111 الشرطة 1548 الدرك 1055 الحماية المدنية 14 تبليغ'],['القانون والمخدرات','r-law','القانون 04-18 25-03 عقوبة علاج متعاطي مروج توظيف تحليل'],['عندما يُعرض عليّ شيء أو يُضغط عليّ','r-no','رفض ضغط قل لا إنترنت'],['كيف أساعد صديقًا؟','r-friend','صديق مساعدة استماع'],['الحالات الطارئة','r-em','طوارئ إسعاف وضعية الإفاقة غيبوبة']].forEach(([t,id,k])=>out.push({t,s:'المساعدة والقانون',ic:'life-buoy',k:t+' '+k,run:()=>{S.mode='ref';render(true);setTimeout(()=>{const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth',block:'start'})},140)}}));
   [['حقيبة المطبوعات: الشهادات والبطاقات والملصق','kit'],['ميثاق الأسرة للوقاية','kit']].forEach(([t,m])=>out.push({t,s:'المطبوعات',ic:'printer',k:t+' طباعة',run:()=>{S.mode=m;render(true)}}));
@@ -381,6 +382,7 @@ function nfItems(){
   if(log.length&&np)a.push({ic:'alert',t:np+(np>1?' مشاركين لم يكملوا':' مشارك لم يكمل')+' الاختبار البعدي',d:'من دونه لا يظهر تحسّن المعرفة في اللوحة.',b:'لوحة المنشّط',m:'report',tab:'people'});
   if(!r.place||!r.fac)a.push({ic:'clipboard',t:'بيانات الحصة غير مكتملة',d:'أضف المكان واسم المنشّط قبل طباعة التقرير.',b:'أكملها',m:'report',tab:'info'});
   const pc=prepCount();if(pc<FAC_PREP.length)a.push({ic:'check-circle',t:'تحضير الحصة: '+pc+' من '+FAC_PREP.length,d:'راجع قائمة التحضير قبل بدء الحصة.',b:'القائمة',m:'report',tab:'over'});
+  const qp=getQ().filter(x=>!x.done).length;if(qp)a.push({ic:'inbox',t:qp+(qp>1?' أسئلة مجهولة':' سؤال مجهول')+' بانتظار الإجابة',d:'أجب عنها في الحصة أو أجّلها إلى جلسة التعزيز.',b:'افتح الصندوق',m:'live',tab:'qbox'});
   if(S.path&&S.path.length)a.push({ic:'map-pin',t:'مسار مخصّص مفعّل',d:S.pathN+' — '+S.path.length+' محطة.',b:'ورقة المنشّط',m:'fac'});
   return a;
 }
@@ -394,7 +396,7 @@ function nfClose(){if(nfPanel&&!nfPanel.hidden){nfPanel.hidden=true;$('#nfBtn').
 /* ---------- الصفحة الرئيسية ---------- */
 function homeView(){
   const log=getLog(),cts=getCtLog();
-  const svc=[['prog','compass','الرحلة التعليمية','ثلاث عشرة محطة مع اختبار قبلي وبعدي وشارات وشهادة.'],['contest','trophy','المسابقة','مسابقة بين الفرق على جهاز واحد مع لوحة ترتيب وسؤال فاصل.'],['parents','users','دليل الأولياء','كيف نحاور أبناءنا ونحميهم ونتصرف عند الخطر.'],['ref','life-buoy','المساعدة والقانون','أين نطلب المساعدة، وما يقوله القانون، وماذا نفعل عند الضغط.'],['fac','clipboard','ورقة المنشّط','توجيهات كل محطة ومسارات جاهزة بالوقت.'],['kit','printer','المطبوعات','بطاقات وملصق QR وميثاق الأسرة والشهادات.']];
+  const svc=[['prog','compass','الرحلة التعليمية','ثلاث عشرة محطة مع اختبار قبلي وبعدي وشارات وشهادة.'],['contest','trophy','المسابقة','مسابقة بين الفرق على جهاز واحد مع لوحة ترتيب وسؤال فاصل.'],['parents','users','دليل الأولياء','كيف نحاور أبناءنا ونحميهم ونتصرف عند الخطر.'],['ref','life-buoy','المساعدة والقانون','أين نطلب المساعدة، وما يقوله القانون، وماذا نفعل عند الضغط.'],['fac','clipboard','ورقة المنشّط','توجيهات كل محطة ومسارات جاهزة بالوقت.'],['studio','sparkle','استوديو رسالتي','اصنع بطاقة برسالتك لأصدقائك وشاركها أو اطبعها.'],['live','clock','إدارة الحصة','مؤقت وتوجيهات المحطة وصندوق الأسئلة المجهولة.'],['pulse','activity','نبض الصف','اكشف ما يظنه الجميع وما هو الواقع داخل الغرفة.'],['kit','printer','المطبوعات','بطاقات وملصق QR وميثاق الأسرة والشهادات.']];
   const act=[];
   log.slice(-4).forEach(e=>act.push({id:e.id,ic:'user',t:'نتيجة مشارك: '+(e.nm||'دون اسم'),d:e.score+' من '+e.total+' نقطة',b:(e.pre!=null&&e.post!=null)?(e.post>e.pre?['gold','تحسّن']:e.post<e.pre?['red','تراجع']:['muted','ثبات']):null}));
   cts.slice(-3).forEach(e=>{const m=Math.max(...e.teams.map(t=>t.s)),w=e.teams.filter(t=>t.s===m);act.push({id:e.id,ic:'trophy',t:'مسابقة بين '+e.teams.length+' فرق',d:m>0?(w.length>1?'انتهت بتعادل':'الفائز: '+e.teams.find(t=>t.s===m).n):'لم يُسجَّل فائز',gold:1,b:null})});
@@ -529,8 +531,8 @@ function dashInfo(){
 }
 function repView(){
   const r=S.rep;if(!r.date)r.date=new Date().toISOString().slice(0,10);
-  const tabs=[['over','نظرة عامة','chart'],['people','المشاركون','users'],['cont','المسابقات','trophy'],['info','بيانات الحصة','clipboard']];
-  const body={over:dashOver,people:dashPeople,cont:dashContests,info:dashInfo}[DASH.tab]();
+  const tabs=[['over','نظرة عامة','chart'],['people','المشاركون','users'],['cont','المسابقات','trophy'],['pulse','نبض الصف','activity'],['boost','التعزيز','repeat'],['info','بيانات الحصة','clipboard']];
+  const body={over:dashOver,people:dashPeople,cont:dashContests,pulse:dashPulse,boost:dashBoost,info:dashInfo}[DASH.tab]();
   return `<div class="dash-head"><div><h2>لوحة المنشّط</h2><p class="lead">نتائج الحصة كما حُفظت في هذا الجهاز: كل مشارك يضغط «حفظ نتيجتي في سجل الجلسة» في نهاية الرحلة.</p></div>
    <div class="acts"><button class="btn" data-act="repprint">${ico('printer')}طباعة التقرير</button><button class="btn sec" data-act="repcsv">${ico('download')}CSV</button><button class="btn sec" data-act="repjson">${ico('download')}JSON</button><button class="btn sec" data-act="repclear">${ico('refresh')}مسح السجل</button></div></div>
    <p class="warn" id="rpm" aria-live="polite"></p>
@@ -539,6 +541,284 @@ function repView(){
    <div role="tabpanel">${body}</div>
    ${DASH.tab==='over'?repSummaryHTML().replace(/<h3>ملخص الحصة بالأرقام<\/h3>/,'<h3>ملخص نصي للتقرير</h3>'):''}`;
 }
+
+/* ===================== أدوات الحصة: استوديو رسالتي · نبض الصف · إدارة الحصة · التعزيز · الدعم المحلي ===================== */
+const dl=(name,blob)=>{const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2500)};
+const lsGet=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch(_){return d}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}};
+
+/* ---------- 1) استوديو رسالتي ---------- */
+const STU_MSG=['أقول «لا» وأبقى أنا.','صحتي أولًا، وصديقي الحقيقي يحترم قراري.','أرفض، أشرح، أبتعد، أغادر.','القوة أن تقول «لا».','لن أبيع مستقبلي بقرص.','أحمي نفسي، وأحمي صديقي.','الصديق الحقيقي لا يضغط عليّ.','أخبر شخصًا أثق به، فلست وحدي.','حياتي أغلى من أي تجربة.','وعيي درعي.'];
+const STU={m:0,custom:'',theme:'green',fmt:'sq',real:true,from:''};
+const stuText=()=>(STU.custom.trim()||STU_MSG[STU.m]).slice(0,110);
+function studioView(){
+  const pr=(k,v,t)=>`<button type="button" class="pill" data-act="stu" data-k="${k}" data-v="${v}" aria-pressed="${String(STU[k])===String(v)}">${t}</button>`;
+  return `<h2>استوديو رسالتي</h2>
+  <p class="lead">اصنع بطاقة برسالتك أنت لأصدقائك. الرسالة التي يكتبها الشباب بأنفسهم أقرب إلى أقرانهم من أي محاضرة. حمّل البطاقة وشاركها، أو اطبعها وعلّقها في الدار أو القسم.</p>
+  <div class="studio-grid">
+   <div class="card">
+    <h3 style="margin-top:0">١. اختر رسالة جاهزة</h3>
+    <div class="opts" role="group" aria-label="رسائل جاهزة">${STU_MSG.map((m,i)=>`<button type="button" class="opt ${!STU.custom.trim()&&STU.m===i?'pick s2':''}" data-act="stu" data-k="m" data-v="${i}" aria-pressed="${!STU.custom.trim()&&STU.m===i}">${m}</button>`).join('')}</div>
+    <h3>٢. أو اكتب رسالتك</h3>
+    <div class="field"><textarea id="stuc" data-act="stuc" rows="3" maxlength="110" placeholder="اكتب جملة قصيرة وقوية تقولها لأصدقائك…" aria-describedby="stuCnt">${esc(STU.custom)}</textarea><span class="hint" id="stuCnt">${STU.custom.length} / 110 حرفًا</span></div>
+    <div class="field"><label for="stuf">من؟ (اختياري)</label><input id="stuf" data-act="stuf" maxlength="30" value="${esc(STU.from)}" placeholder="مثال: فريق دار الشباب"><span class="hint">اكتب اسم الفريق أو الصف لا اسمك الكامل.</span></div>
+    <h3>٣. الشكل</h3>
+    <div class="chips" role="group" aria-label="اللون">${pr('theme','green','أخضر')}${pr('theme','cream','كريمي')}${pr('theme','white','أبيض')}</div>
+    <div class="chips" role="group" aria-label="القياس" style="margin-top:.5rem">${pr('fmt','sq','مربّع (منشور)')}${pr('fmt','st','عمودي (قصة)')}</div>
+    <label class="qo" style="margin-top:.6rem"><input type="checkbox" data-act="stur" ${STU.real?'checked':''}> أضف خطوات الرفض الأربع: ارفض · اشرح · ابتعد · غادر</label>
+   </div>
+   <div class="studio-side">
+    <div class="studio-preview"><canvas id="stuc2" aria-label="معاينة البطاقة" role="img"></canvas></div>
+    <div class="acts-col">
+      <button type="button" class="btn gold" data-act="studl">${ico('download')}تحميل الصورة</button>
+      <button type="button" class="btn" data-act="stupr">${ico('printer')}طباعة البطاقة</button>
+      <button type="button" class="btn sec" data-act="stucp">${ico('copy')}نسخ الرسالة</button>
+    </div>
+    <div class="alert"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><div><b>للمنشّط</b><p>اجعل كل فريق يصنع بطاقة ثم تُعرض على الشاشة. انتبه إلى أن الرسالة يجب أن تكون إيجابية (ماذا أفعل) لا تخويفية.</p></div></div>
+   </div>
+  </div>`;
+}
+let stuLogo=null,stuTok=0;
+function stuReady(){return Promise.all([document.fonts?document.fonts.load('800 60px Cairo').catch(()=>{}):0,new Promise(r=>{if(stuLogo&&stuLogo.complete&&stuLogo.naturalWidth)return r();stuLogo=new Image();stuLogo.onload=r;stuLogo.onerror=r;stuLogo.src=LOGO_HI})])}
+async function studioDraw(){
+  const cv=$('#stuc2');if(!cv)return;const tok=++stuTok;await stuReady();if(tok!==stuTok||!document.body.contains(cv))return;
+  const sq=STU.fmt==='sq',W=1080,H=sq?1080:1920,x=cv.getContext('2d');cv.width=W;cv.height=H;
+  const th={green:{bg:'#1a4731',fg:'#ffffff',ac:'#c9993a',sub:'#e4cc9c',chip:'#c9993a',chipt:'#10321f'},cream:{bg:'#F7F4EC',fg:'#1a4731',ac:'#c9993a',sub:'#4e6558',chip:'#1a4731',chipt:'#ffffff'},white:{bg:'#ffffff',fg:'#1a4731',ac:'#c9993a',sub:'#4e6558',chip:'#1a4731',chipt:'#ffffff'}}[STU.theme];
+  const F='"Cairo","Segoe UI",Tahoma,sans-serif';
+  x.fillStyle=th.bg;x.fillRect(0,0,W,H);
+  x.strokeStyle=th.ac;x.lineWidth=7;x.strokeRect(34,34,W-68,H-68);x.lineWidth=2;x.strokeRect(54,54,W-108,H-108);
+  const lg=sq?210:280,ly=sq?96:150;
+  if(stuLogo&&stuLogo.naturalWidth)x.drawImage(stuLogo,(W-lg)/2,ly,lg,lg);
+  x.direction='rtl';x.textAlign='center';x.textBaseline='alphabetic';
+  x.fillStyle=th.ac;x.font='800 '+(sq?40:50)+'px '+F;x.fillText('وعيي درعي',W/2,ly+lg+(sq?64:84));
+  const txt=stuText(),n=txt.length,fs=sq?(n<=26?96:n<=55?80:66):(n<=26?120:n<=55?100:82),maxW=W-230;
+  x.font='800 '+fs+'px '+F;x.fillStyle=th.fg;
+  const words=txt.split(/\s+/),lines=[];let cur='';
+  words.forEach(w=>{const t=cur?cur+' '+w:w;if(x.measureText(t).width>maxW&&cur){lines.push(cur);cur=w}else cur=t});if(cur)lines.push(cur);
+  const lh=fs*1.5,top=sq?ly+lg+150:ly+lg+240,bot=sq?H-300:H-470,blockH=lines.length*lh,y0=top+Math.max(0,(bot-top-blockH)/2)+fs*.9;
+  lines.forEach((l,i)=>x.fillText(l,W/2,y0+i*lh));
+  const yEnd=y0+(lines.length-1)*lh;
+  if(STU.from.trim()){x.font='700 '+(sq?38:46)+'px '+F;x.fillStyle=th.sub;x.fillText('— '+STU.from.trim().slice(0,30),W/2,yEnd+(sq?70:90))}
+  if(STU.real){
+    const wds=['ارفض','اشرح','ابتعد','غادر'],cw=sq?190:220,ch=sq?64:78,gap=22,tw=wds.length*cw+(wds.length-1)*gap,yy=H-(sq?250:330);
+    x.font='800 '+(sq?36:44)+'px '+F;
+    wds.forEach((w,i)=>{const cx=W/2+tw/2-cw/2-i*(cw+gap);x.fillStyle=th.chip;x.beginPath();x.roundRect?x.roundRect(cx-cw/2,yy,cw,ch,ch/2):x.rect(cx-cw/2,yy,cw,ch);x.fill();x.fillStyle=th.chipt;x.fillText(w,cx,yy+ch*.7)});
+  }
+  x.fillStyle=th.sub;x.font='700 '+(sq?30:38)+'px '+F;x.fillText('لنبني صروح الفكر، لا نكن معاول هدم',W/2,H-(sq?136:150));
+  x.fillStyle=th.ac;x.font='800 '+(sq?30:38)+'px '+F;x.fillText('ديوان قطاع الشباب والرياضة',W/2,H-(sq?92:96));
+}
+function stuDownload(){const cv=$('#stuc2');if(!cv)return;try{cv.toBlob(b=>{if(!b){toast('تعذّر حفظ الصورة');return}dl('رسالتي-وعيي-درعي.png',b);toast('تم تحميل البطاقة')},'image/png')}catch(_){toast('تعذّر حفظ الصورة. افتح البرنامج عبر رابطه المنشور.')}}
+function stuPrint(){const cv=$('#stuc2');if(!cv)return;try{printKit(`<div class="kpage studio"><img class="stu-img" src="${cv.toDataURL('image/png')}" alt="بطاقة رسالتي"></div>`)}catch(_){toast('تعذّرت الطباعة. افتح البرنامج عبر رابطه المنشور.')}}
+function stuCopy(){const t=stuText();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>toast('تم نسخ الرسالة'),()=>toast('تعذّر النسخ'));else toast('انسخ الرسالة يدويًا')}
+
+/* ---------- 2) نبض الصف ---------- */
+const PUK='diwan-drugs-pulse';
+const PULSE_Q=[
+ {t:'معظم أقراني يؤيدون تجربة الأقراص أو المواد «للتجريب فقط».',pro:'disagree'},
+ {t:'من يقول «لا» حين يُعرض عليه شيء يخسر أصدقاءه.',pro:'disagree'},
+ {t:'طلب المساعدة من شخص بالغ عند الخطر قوة وليس ضعفًا.',pro:'agree'},
+ {t:'يمكنني أن أقول «لا» وأبقى محبوبًا بين أصدقائي.',pro:'agree'},
+ {t:'قرص واحد لن يضر.',pro:'disagree'},
+ {t:'لو رأيت صديقي في خطر فسأخبر شخصًا بالغًا حتى لو غضب مني.',pro:'agree'},
+ {t:'لا بأس أن آخذ دواءً من صديق إن قال إنه سيريحني.',pro:'disagree',aud:'kids'},
+ {t:'الأقراص المؤثرة على النفس آمنة ما دام مصدرها «صيدلية» أو شخصًا أعرفه.',pro:'disagree',aud:'youth'}
+];
+const getPulse=()=>lsGet(PUK,[]);
+const PUL={q:0,a:0,b:0,c:0,shown:false};
+const pulseQs=()=>PULSE_Q.filter(x=>!x.aud||x.aud===S.aud);
+function pulseStats(){const q=pulseQs()[PUL.q]||pulseQs()[0],tot=PUL.a+PUL.b+PUL.c,pro=q.pro==='agree'?PUL.a:PUL.c;return {q,tot,pro,pct:tot?Math.round(pro/tot*100):0}}
+function pulseMsg(p){
+  if(p>=70)return 'الأغلبية هنا تتبنى الموقف الوقائي. اسأل: هل توقعتم ذلك؟ ولماذا يظن كثيرون أن «الجميع يفعلها» وهو غير صحيح؟';
+  if(p>=40)return 'الآراء منقسمة. اسأل: ما الذي يجعلنا نختلف؟ وما الذي يحتاجه من تردد ليشعر بالقوة ويقول «لا»؟';
+  return 'كثيرون هنا يميلون إلى الموقف الآخر، فلا تلمهم. اسأل: ما الذي يجعل هذه الفكرة مقنعة؟ وما الذي لا نراه فيها؟ ثم عد إلى المحطة المناسبة.';
+}
+function pulseView(){
+  const qs=pulseQs();if(PUL.q>=qs.length)PUL.q=0;
+  const st=pulseStats(),L=[['a','موافق','ok'],['b','متردد','mid'],['c','غير موافق','no']];
+  const pct=v=>st.tot?Math.round(v/st.tot*100):0;
+  const proKey=st.q.pro==='agree'?'a':'c';
+  const hist=getPulse().slice().reverse();
+  return `<h2>نبض الصف</h2>
+  <p class="lead">كثير من الشباب يظنون أن «الجميع يفعل ذلك»، والواقع داخل الغرفة غالبًا يخالف هذا الظن. اجعل المجموعة تكتشف ذلك بنفسها، دون أسماء ودون إحراج.</p>
+  <div class="alert"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><div><b>الطريقة</b><p>اقرأ العبارة، واطلب من الجميع إغلاق العيون ثم رفع بطاقة: <b>موافق</b> أو <b>متردد</b> أو <b>غير موافق</b>. عُدّ البطاقات وأدخل الأعداد، ثم اكشف النتيجة وناقشها.</p></div></div>
+  <div class="card">
+   <div class="field"><label for="pq">١. اختر العبارة</label><select id="pq" data-act="pq">${qs.map((x,i)=>`<option value="${i}" ${i===PUL.q?'selected':''}>${esc(x.t.slice(0,70))}${x.t.length>70?'…':''}</option>`).join('')}</select></div>
+   <div class="item" style="margin-top:.2rem"><span class="cnt">العبارة المعروضة</span>${esc(st.q.t)}</div>
+   <h3 style="margin-top:.6rem">٢. أدخل عدد من رفع كل بطاقة</h3>
+   <div class="pcounts">${L.map(l=>`<div class="pcount ${l[0]===proKey?'pro':''}"><span class="pl">${l[1]}${l[0]===proKey?'<small>الموقف الوقائي</small>':''}</span><div class="pc-in"><button type="button" class="icon-btn" data-act="pc" data-k="${l[0]}" data-d="-1" aria-label="إنقاص ${l[1]}">${ico('minus')}</button><b class="num" aria-live="polite">${PUL[l[0]]}</b><button type="button" class="icon-btn" data-act="pc" data-k="${l[0]}" data-d="1" aria-label="زيادة ${l[1]}">${ico('plus')}</button></div></div>`).join('')}</div>
+   <div class="acts" style="margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap"><button type="button" class="btn" data-act="pshow" ${st.tot?'':'disabled'}>${ico('eye')}اكشف النتيجة</button><button type="button" class="btn sec" data-act="preset">صفّر الأعداد</button></div>
+   ${PUL.shown&&st.tot?`<div class="pulse-res"><div class="hbars">${L.map(l=>`<div class="hb ${l[0]===proKey?'':'warn'}"><span>${l[1]}</span><div class="pr"><i style="width:${pct(PUL[l[0]])}%;${l[0]===proKey?'':'background:var(--gold-400)'}"></i></div><b>${pct(PUL[l[0]])}%</b></div>`).join('')}</div>
+     <div class="stat dark" style="margin:1rem 0"><span class="si">${ico('shield-check')}</span><div><span class="sv num">${st.pct}%</span><span class="sl2">اختاروا الموقف الوقائي من ${st.tot} مشاركًا</span></div></div>
+     <div class="alert success"><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg><div><b>سؤال النقاش</b><p>${pulseMsg(st.pct)}</p></div></div>
+     <div class="acts" style="display:flex;gap:.6rem;flex-wrap:wrap"><button type="button" class="btn gold" data-act="psave">${ico('check')}احفظ في تقرير الحصة</button><button type="button" class="btn sec" data-act="pnext">عبارة أخرى${ico('arrow-l','sm')}</button></div></div>`:''}
+  </div>
+  <div class="sec-head"><h2>استطلاعات هذه الحصة</h2></div>
+  ${hist.length?`<div class="tblw"><table class="tbl"><thead><tr><th>العبارة</th><th class="num">المشاركون</th><th class="num">الموقف الوقائي</th><th></th></tr></thead><tbody>${hist.map(h=>`<tr><td>${esc(h.q)}</td><td class="num">${h.tot}</td><td class="num"><span class="badge ${h.pct>=70?'':'gold'}">${h.pct}%</span></td><td><button type="button" class="icon-btn" data-act="pdel" data-id="${h.id}" aria-label="حذف">${ico('trash','sm')}</button></td></tr>`).join('')}</tbody></table></div>`:`<div class="empty"><span class="ei">${ico('activity')}</span><h4>لا توجد استطلاعات بعد</h4><p>أدخل الأعداد ثم اضغط «احفظ في تقرير الحصة» لتظهر هنا وفي لوحة المنشّط.</p></div>`}`;
+}
+function pulseRepHTML(){
+  const a=getPulse();if(!a.length)return '';
+  return `<h3>نبض الصف</h3><table class="tbl"><thead><tr><th>العبارة</th><th>المشاركون</th><th>الموقف الوقائي</th></tr></thead><tbody>${a.map(h=>`<tr><td>${esc(h.q)}</td><td>${h.tot}</td><td>${h.pct}%</td></tr>`).join('')}</tbody></table>`;
+}
+function dashPulse(){
+  const a=getPulse().slice().reverse();
+  if(!a.length)return `<div class="empty"><span class="ei">${ico('activity')}</span><h4>لا توجد استطلاعات</h4><p>استعمل «نبض الصف» أثناء الحصة، وتُحفظ نتائجه هنا تلقائيًا.</p><button class="btn" data-act="mode" data-v="pulse">افتح نبض الصف</button></div>`;
+  const avgp=Math.round(a.reduce((s,h)=>s+h.pct,0)/a.length);
+  return `<div class="stats"><div class="stat"><span class="si">${ico('activity')}</span><div><span class="sv num">${a.length}</span><span class="sl2">استطلاعات</span></div></div><div class="stat dark"><span class="si">${ico('shield-check')}</span><div><span class="sv num">${avgp}%</span><span class="sl2">متوسط الموقف الوقائي</span></div></div></div>
+  <div class="tblw"><table class="tbl"><thead><tr><th>العبارة</th><th class="num">المشاركون</th><th class="num">الموقف الوقائي</th></tr></thead><tbody>${a.map(h=>`<tr><td>${esc(h.q)}</td><td class="num">${h.tot}</td><td class="num"><span class="badge ${h.pct>=70?'':'gold'}">${h.pct}%</span></td></tr>`).join('')}</tbody></table></div>`;
+}
+
+/* ---------- 3) إدارة الحصة ---------- */
+const QBK='diwan-drugs-qbox';
+const LIVE={run:false,ph:'explain',t:{explain:0,practice:0,discuss:0},target:45,tab:'timer',pick:0};
+let liveTimer=0;
+const mmss=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
+const liveTot=()=>LIVE.t.explain+LIVE.t.practice+LIVE.t.discuss;
+function liveUpd(){
+  const tot=liveTot(),c=$('#lvTot');if(!c)return;
+  c.textContent=mmss(tot);
+  const bar=$('#lvBar');if(bar)bar.style.width=Math.min(100,Math.round(tot/(LIVE.target*60)*100))+'%';
+  const rem=$('#lvRem');if(rem){const r=LIVE.target*60-tot;rem.textContent=r>=0?'المتبقي '+mmss(r):'تجاوزتَ الوقت بـ '+mmss(-r)}
+  ['explain','practice','discuss'].forEach(k=>{const e=$('#lv_'+k);if(e)e.textContent=mmss(LIVE.t[k]);const b=$('#lvb_'+k);if(b)b.style.width=(tot?Math.round(LIVE.t[k]/tot*100):0)+'%'});
+  const adv=$('#lvAdv');if(adv){const act=LIVE.t.practice+LIVE.t.discuss;if(tot<300)adv.innerHTML='ابدأ الحصة، وستظهر هنا ملاحظة عن توازن الوقت بعد خمس دقائق.';else if(act/tot<0.5)adv.innerHTML=`<div class="alert warning"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg><div><b>الحصة تميل إلى الشرح</b><p>برامج الوقاية الفعالة تعتمد على التفاعل والتدرّب. أضف تمثيلًا أو نقاشًا الآن.</p></div></div>`;else adv.innerHTML=`<div class="alert success"><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg><div><b>توازن جيد</b><p>أكثر من نصف الوقت في التدريب والنقاش.</p></div></div>`}
+}
+function liveStart(){if(LIVE.run)return;LIVE.run=true;liveTimer=setInterval(()=>{LIVE.t[LIVE.ph]++;liveUpd()},1000)}
+function livePause(){LIVE.run=false;clearInterval(liveTimer)}
+const getQ=()=>lsGet(QBK,[]);
+function liveTimerTab(){
+  const PH=[['explain','شرح','book'],['practice','تدريب','users'],['discuss','نقاش','message']];
+  return `<div class="live-clock card cream"><span class="lbl">الزمن المنقضي</span><b class="num" id="lvTot">${mmss(liveTot())}</b>
+   <div class="progress gold"><i id="lvBar" style="width:${Math.min(100,Math.round(liveTot()/(LIVE.target*60)*100))}%"></i></div>
+   <div class="lv-row"><span id="lvRem" class="caption"></span><label class="caption">الزمن المخطَّط <select data-act="lvtarget" aria-label="الزمن المخطط">${[30,45,60,90].map(v=>`<option value="${v}" ${v===LIVE.target?'selected':''}>${v} دقيقة</option>`).join('')}</select></label></div>
+   <div class="acts" style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center"><button type="button" class="btn ${LIVE.run?'sec':'gold'} lg" data-act="lvrun">${ico(LIVE.run?'pause':'play')}${LIVE.run?'إيقاف مؤقت':'ابدأ المؤقت'}</button><button type="button" class="btn sec" data-act="lvreset">${ico('refresh')}تصفير</button></div></div>
+  <h3>ماذا نفعل الآن؟ (يُحسب الوقت على الحالة المختارة)</h3>
+  <div class="phase-btns" role="group" aria-label="نوع النشاط">${PH.map(p=>`<button type="button" class="phase" data-act="lvph" data-v="${p[0]}" aria-pressed="${LIVE.ph===p[0]}">${ico(p[2])}<b>${p[1]}</b><span class="num" id="lv_${p[0]}">${mmss(LIVE.t[p[0]])}</span><i class="pb"><i id="lvb_${p[0]}" style="width:${liveTot()?Math.round(LIVE.t[p[0]]/liveTot()*100):0}%"></i></i></button>`).join('')}</div>
+  <div id="lvAdv" class="warn" style="margin-top:.8rem"></div>`;
+}
+function liveStationTab(){
+  const s=ST[S.i],f=FAC[s.k],ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+  return `<div class="card accent"><div class="card-head"><div><span class="eyebrow" style="color:var(--green-600)">المحطة الحالية</span><h3 style="margin:.2rem 0 0;color:var(--text-strong)">${ico(s.ic)} ${esc(s.n)}</h3></div>${f?`<span class="badge gold">${ico('clock','sm')} ${f.t} دقائق</span>`:''}</div>
+   ${f?`<p><b>الهدف:</b> ${esc(f.goal)}</p><h4>كيف تُدير المحطة</h4>${ul(f.run)}<h4>أسئلة للنقاش</h4>${ul(f.ask)}<div class="alert warning"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg><div><b>انتبه</b><p>${esc(f.care)}</p></div></div>`:`<p class="warn">لا توجد توجيهات خاصة لهذه المحطة.</p>`}
+   <div class="acts" style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem"><button type="button" class="btn sec" data-act="lvgo" data-d="-1" ${atStart()?'disabled':''}>${ico('chevron-r','sm')}المحطة السابقة</button><button type="button" class="btn" data-act="lvgo" data-d="1" ${atEnd()?'disabled':''}>المحطة التالية${ico('chevron-l','sm')}</button><button type="button" class="btn gold" data-act="mode" data-v="prog">افتح المحطة للعرض</button></div></div>
+   <details class="info" style="margin-top:1rem"><summary>${ico('lock')}إذا كشف مشارك عن حالة خاصة</summary><ul>${FAC_SENS.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`;
+}
+function liveQboxTab(){
+  const q=getQ(),pend=q.filter(x=>!x.done).length,pk=q.find(x=>x.id===LIVE.pick);
+  return `<div class="alert"><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg><div><b>صندوق الأسئلة المجهولة</b><p>وزّع أوراقًا صغيرة ليكتب كل مشارك سؤاله دون اسم، ثم اجمعها وأدخلها هنا. الأطفال يسألون ما يخجلون من قوله علنًا، وهذا يكشف ما يشغلهم فعلًا.</p></div></div>
+  <div class="card"><div class="field"><label for="qin">أدخل سؤالًا من ورقة</label><textarea id="qin" rows="2" maxlength="240" placeholder="اكتب السؤال كما ورد…"></textarea></div><div class="acts" style="display:flex;gap:.6rem;flex-wrap:wrap"><button type="button" class="btn" data-act="qadd">${ico('plus')}أضف</button><button type="button" class="btn gold" data-act="qpick" ${pend?'':'disabled'}>${ico('shuffle')}اسحب سؤالًا عشوائيًا</button></div></div>
+  ${pk?`<div class="item" style="border-color:var(--brand-gold);border-width:2px"><span class="cnt">السؤال المسحوب</span>${esc(pk.t)}</div>`:''}
+  <div class="sec-head"><h2>الأسئلة <span class="badge ${pend?'gold':''}">${pend} بانتظار الإجابة</span></h2>${q.length?`<button type="button" class="link" data-act="qclear">${ico('trash','sm')}مسح الصندوق</button>`:''}</div>
+  ${q.length?`<ul class="qlist">${q.map(x=>`<li class="${x.done?'done':''}"><label><input type="checkbox" data-act="qdone" data-id="${x.id}" ${x.done?'checked':''}><span>${esc(x.t)}</span></label></li>`).join('')}</ul>`:`<div class="empty"><span class="ei">${ico('inbox')}</span><h4>الصندوق فارغ</h4><p>أضف الأسئلة التي جمعتها من الأوراق.</p></div>`}
+  <details class="info" style="margin-top:1rem"><summary>${ico('bulb')}قواعد الإجابة</summary><ul><li>أجب بإيجاز وبلغة بسيطة، ولا تذكر طرق الاستعمال أو الحصول على أي مادة.</li><li>إن لم تعرف: «سؤال جيد، سأتحقق وأعود إليكم».</li><li>إن بدا السؤال كشفًا عن حالة شخصية فلا تسأل عن صاحبه أمام المجموعة، واتبع بروتوكول الكشف.</li><li>اجمع الأسئلة المتكررة لتعالجها في جلسة التعزيز.</li></ul></details>`;
+}
+function liveView(){
+  const tabs=[['timer','المؤقت','clock'],['st','المحطة الحالية','compass'],['qbox','الأسئلة المجهولة','inbox']];
+  const body={timer:liveTimerTab,st:liveStationTab,qbox:liveQboxTab}[LIVE.tab]();
+  return `<h2>إدارة الحصة</h2><p class="lead">لوحة تحكم أمام المنشّط أثناء العرض: مؤقت يوازن بين الشرح والتدريب، وتوجيهات المحطة الحالية، وصندوق للأسئلة المجهولة.</p>
+  <div class="tabs-ui" role="tablist" aria-label="أقسام إدارة الحصة">${tabs.map(t=>`<button type="button" class="tab-ui" role="tab" data-act="lvtab" data-v="${t[0]}" aria-selected="${LIVE.tab===t[0]}">${ico(t[2],'sm')}${t[1]}</button>`).join('')}</div>
+  <div role="tabpanel">${body}</div>`;
+}
+
+/* ---------- 4) حزمة التعزيز + رسالة الأولياء ---------- */
+function boostPlan(){
+  const wk=weakStations(3).map(x=>x.k),keys=wk.length===3?wk:['refuse','myth','help'];
+  const rp=(RP[S.aud]||RP.kids)[0],recap=[];
+  keys.forEach(k=>{const it=(DL[k]&&DL[k][S.aud]||[]).slice(0,2);it.forEach(x=>{const o=(DB[k]||['سليم','خاطئ'])[x.c];recap.push({k,t:x.t,a:typeof o==='string'?o:((o&&(o.t||o.l||o.label))||(x.c===0?'سليم':'خاطئ')),f:x.f})})});
+  return {keys,rp,recap:recap.slice(0,5),data:wk.length===3};
+}
+function dashBoost(){
+  const b=boostPlan(),nm=k=>esc(ST.find(s=>s.k===k).n);
+  return `<div class="alert"><svg class="ic" aria-hidden="true"><use href="#i-repeat"/></svg><div><b>لماذا جلسة تعزيز؟</b><p>الأثر الدائم يحتاج إلى تكرار وتدريب لاحق، فحصة واحدة لا تكفي. نظّم جلسة قصيرة بعد أسبوعين أو ثلاثة.</p></div></div>
+  <div class="dash-grid"><div class="card"><h3 style="margin-top:0">خطة جلسة التعزيز (15 دقيقة)</h3>
+   <ol class="refsteps"><li><b>3 دقائق — نبض سريع:</b> ابدأ بعبارة من «نبض الصف» لمعرفة أين وصل المشاركون.</li>
+   <li><b>6 دقائق — مراجعة ${b.data?'المحطات الأضعف':'المحطات الأهم'}:</b> ${b.keys.map(nm).join(' · ')}.</li>
+   <li><b>4 دقائق — تدريب على الرفض:</b> مثّلوا الموقف «${esc(b.rp.t)}» بخطوات: ارفض، اشرح، ابتعد، غادر.</li>
+   <li><b>2 دقيقة — الالتزام:</b> راجعوا ميثاق الأسرة وأرقام المساعدة.</li></ol>
+   ${b.data?'':'<p class="warn">لم تتوفر بيانات كافية عن المحطات الأضعف بعد، فاخترنا المحطات الأهم. تُحدَّد تلقائيًا من نتائج المشاركين متى توفرت.</p>'}</div>
+   <div class="card"><h3 style="margin-top:0">أسئلة المراجعة</h3><ol>${b.recap.map(r=>`<li>${esc(r.t)} <span class="badge">${esc(r.a)}</span></li>`).join('')}</ol></div></div>
+  <div class="acts" style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem"><button type="button" class="btn" data-act="kitprint" data-v="booster">${ico('printer')}طباعة جلسة التعزيز</button><button type="button" class="btn sec" data-act="kitprint" data-v="parentmsg">${ico('users')}طباعة رسالة الأولياء</button></div>`;
+}
+function boosterHTML(){
+  const b=boostPlan(),nm=k=>esc(ST.find(s=>s.k===k).n);
+  return `<div class="kpage boost"><h1 class="kt">جلسة التعزيز — 15 دقيقة</h1><p class="kn">وعيي درعي · ديوان قطاع الشباب والرياضة · التاريخ: <span class="pl"></span></p>
+  <table class="tbl"><thead><tr><th style="width:18%">الزمن</th><th>النشاط</th></tr></thead><tbody>
+   <tr><td>3 دقائق</td><td><b>نبض سريع:</b> عبارة من «نبض الصف» بالبطاقات، ثم سؤال نقاش.</td></tr>
+   <tr><td>6 دقائق</td><td><b>مراجعة:</b> ${b.keys.map(nm).join(' · ')} — اقرأ الأسئلة أدناه وناقش كل إجابة.</td></tr>
+   <tr><td>4 دقائق</td><td><b>تدريب:</b> «${esc(b.rp.t)}» — ${esc(b.rp.s)} (الأدوار: ${b.rp.r.map(esc).join('، ')}). استعملوا: ارفض · اشرح · ابتعد · غادر.</td></tr>
+   <tr><td>2 دقيقة</td><td><b>الالتزام:</b> مراجعة ميثاق الأسرة وأرقام المساعدة.</td></tr></tbody></table>
+  <h2>أسئلة المراجعة</h2><ol>${b.recap.map(r=>`<li>${esc(r.t)}</li>`).join('')}</ol>
+  <h2>مفتاح الإجابة للمنشّط</h2><ol>${b.recap.map(r=>`<li><b>${esc(r.a)}.</b> ${esc(r.f)}</li>`).join('')}</ol>
+  <div class="pnum"><b>للطوارئ والمساعدة:</b> الرقم الأخضر <b>1111</b> · الشرطة <b>1548</b> · الدرك الوطني <b>1055</b> · الحماية المدنية <b>14</b></div></div>`;
+}
+function parentMsgHTML(){
+  const learned=ST.filter(s=>MAXP[s.k]).slice(0,13).map(s=>esc(s.n));
+  return `<div class="kpage parentmsg"><h1 class="kt">رسالة إلى الأولياء</h1><p class="kn">وعيي درعي · ديوان قطاع الشباب والرياضة</p>
+  <p>أعزّاءنا الأولياء، شارك أبناؤكم اليوم في حصة تحسيسية للوقاية من المخدرات والمهلوسات. لم نخوّفهم، بل تدرّبنا معهم على فهم المخاطر، وقول «لا»، وطلب المساعدة. وحتى يبقى الأثر، نحتاج إلى مساهمتكم في البيت.</p>
+  <h2>ما تعلّمه أبناؤكم</h2><p class="chipsp">${learned.join(' · ')}.</p>
+  <h2>ثلاثة أشياء تفعلونها هذا الأسبوع</h2>
+  <ol><li><b>اسألوا بفضول لا باتهام:</b> «ماذا تعلّمت اليوم؟ ماذا يقال عن هذا الموضوع بين أصدقائك؟».</li>
+  <li><b>قولوا لهم بوضوح:</b> «مهما حدث سأكون سندك، ولن أعاقبك لأنك أخبرتني».</li>
+  <li><b>وقّعوا معهم ميثاق الأسرة للوقاية</b> وعلّقوه في مكان ظاهر، وراجعوه بعد شهر.</li></ol>
+  <h2>انتبهوا إلى</h2><p>تغيّر مفاجئ في المزاج أو النوم أو الدراسة أو الأصدقاء، فقدان مال أو أشياء، أو وجود أقراص غير مفسَّرة. العلامة الواحدة لا تثبت شيئًا؛ اقتربوا بلطف، واستشيروا الطبيب أو المرشد قبل العقاب. وحافظوا على الأدوية بعيدًا عن متناول الأطفال.</p>
+  <div class="pnum"><b>أرقام عند الحاجة:</b> الرقم الأخضر <b>1111</b> · الشرطة <b>1548</b> · الدرك الوطني <b>1055</b> · الحماية المدنية <b>14</b></div>
+  <div class="sigs2"><div><hr>المنشّط</div><div><hr>إدارة المؤسسة</div></div></div>`;
+}
+
+/* ---------- 5) بطاقة الدعم المحلية ---------- */
+const LOCK='diwan-drugs-local';
+const LOC_F=[['cons','المرشد أو الأخصائي النفسي في المؤسسة'],['consTel','هاتفه'],['center','أقرب مركز لعلاج الإدمان'],['centerTel','هاتف المركز'],['doc','الطبيب أو المستوصف'],['docTel','هاتفه'],['fac','منشّط الدار'],['facTel','هاتفه']];
+const getLoc=()=>lsGet(LOCK,{});
+function locForm(){
+  const l=getLoc();
+  return `<div class="card cream" style="margin:1.2rem 0"><div class="card-head"><h3 style="margin:0">بطاقة الدعم المحلية</h3><button type="button" class="btn sm" data-act="kitprint" data-v="support">${ico('printer','sm')}طباعة البطاقات</button></div>
+   <p class="warn">«أخبر شخصًا بالغًا تثق به» أقوى حين تصير اسمًا ورقمًا. املأ ما يخص مؤسستك مرة واحدة، فتُطبع على بطاقات صغيرة توزَّع على المشاركين. تبقى البيانات في هذا الجهاز.</p>
+   <div class="loc-grid">${LOC_F.map(f=>`<div class="field"><label for="loc_${f[0]}">${f[1]}</label><input id="loc_${f[0]}" data-act="loc" data-k="${f[0]}" value="${esc(l[f[0]]||'')}" maxlength="60" ${f[0].endsWith('Tel')?'inputmode="tel" dir="ltr" style="text-align:start"':''}></div>`).join('')}</div></div>`;
+}
+function supportHTML(){
+  const l=getLoc(),ln=(lab,v)=>`<div class="sl"><span>${lab}</span><b>${v?esc(v):'<i class="blank"></i>'}</b></div>`;
+  const card=`<div class="scard"><div class="sc-h"><img src="${LOGO}" alt=""><div><b>بطاقة المساعدة</b><small>وعيي درعي · ديوان قطاع الشباب والرياضة</small></div></div>
+   <div class="sc-n"><span><b>1111</b>الرقم الأخضر</span><span><b>1548</b>الشرطة</span><span><b>1055</b>الدرك</span><span><b>14</b>الحماية المدنية</span></div>
+   ${ln('المرشد',(l.cons||'')+(l.consTel?' · '+l.consTel:''))}${ln('مركز العلاج',(l.center||'')+(l.centerTel?' · '+l.centerTel:''))}${ln('الطبيب',(l.doc||'')+(l.docTel?' · '+l.docTel:''))}${ln('المنشّط',(l.fac||'')+(l.facTel?' · '+l.facTel:''))}
+   <div class="sc-f">مهما حدث… أخبر شخصًا تثق به. طلب المساعدة قوة.</div></div>`;
+  return `<div class="kpage support"><div class="sgrid">${card.repeat(6)}</div></div>`;
+}
+
+/* ---------- مستمعات أدوات الحصة ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act]');if(!t)return;const a=t.dataset.act,v=t.dataset.v,k=t.dataset.k;
+  switch(a){
+   case 'stu':if(k==='m'){STU.m=+v;STU.custom=''}else STU[k]=v;render(false);break;
+   case 'studl':stuDownload();break;
+   case 'stupr':stuPrint();break;
+   case 'stucp':stuCopy();break;
+   case 'pc':PUL[k]=Math.max(0,PUL[k]+(+t.dataset.d));PUL.shown=false;render(false);break;
+   case 'pshow':PUL.shown=true;render(false);break;
+   case 'preset':PUL.a=PUL.b=PUL.c=0;PUL.shown=false;render(false);break;
+   case 'pnext':PUL.q=(PUL.q+1)%pulseQs().length;PUL.a=PUL.b=PUL.c=0;PUL.shown=false;render(false);break;
+   case 'psave':{const st=pulseStats(),h=getPulse();h.push({id:Date.now(),q:st.q.t,tot:st.tot,pct:st.pct});lsSet(PUK,h.slice(-40));toast('حُفظ الاستطلاع في تقرير الحصة');PUL.a=PUL.b=PUL.c=0;PUL.shown=false;PUL.q=(PUL.q+1)%pulseQs().length;render(false);break}
+   case 'pdel':lsSet(PUK,getPulse().filter(x=>String(x.id)!==t.dataset.id));render(false);break;
+   case 'lvtab':LIVE.tab=v;render(false);break;
+   case 'lvrun':if(LIVE.run)livePause();else liveStart();render(false);break;
+   case 'lvreset':livePause();LIVE.t={explain:0,practice:0,discuss:0};render(false);break;
+   case 'lvph':LIVE.ph=v;render(false);break;
+   case 'lvgo':{const j=stepIdx(S.i,+t.dataset.d);if(j!==S.i){S.i=j;save();render(false)}break}
+   case 'qadd':{const f=$('#qin'),x=(f.value||'').trim();if(!x){f.focus();break}const q=getQ();q.push({id:Date.now(),t:x.slice(0,240),done:false});lsSet(QBK,q.slice(-60));render(false);nfUpd();break}
+   case 'qpick':{const p=getQ().filter(x=>!x.done);if(p.length){LIVE.pick=p[Math.floor(Math.random()*p.length)].id;render(false)}break}
+   case 'qclear':if(window.confirm('مسح كل الأسئلة من الصندوق؟')){lsSet(QBK,[]);LIVE.pick=0;render(false);nfUpd()}break;
+  }
+});
+document.addEventListener('input',e=>{
+  const t=e.target,a=t.dataset&&t.dataset.act;if(!a)return;
+  if(a==='stuc'){STU.custom=t.value;const c=$('#stuCnt');if(c)c.textContent=t.value.length+' / 110 حرفًا';studioDraw()}
+  else if(a==='stuf'){STU.from=t.value;studioDraw()}
+  else if(a==='loc'){const l=getLoc();l[t.dataset.k]=t.value;lsSet(LOCK,l)}
+});
+document.addEventListener('change',e=>{
+  const t=e.target,a=t.dataset&&t.dataset.act;if(!a)return;
+  if(a==='stur'){STU.real=t.checked;studioDraw()}
+  else if(a==='pq'){PUL.q=+t.value;PUL.a=PUL.b=PUL.c=0;PUL.shown=false;render(false)}
+  else if(a==='lvtarget'){LIVE.target=+t.value;liveUpd()}
+  else if(a==='qdone'){const q=getQ();const x=q.find(y=>String(y.id)===t.dataset.id);if(x){x.done=t.checked;lsSet(QBK,q);render(false);nfUpd()}}
+});
 
 /* ---------- مستمعات الغلاف (نقر، إدخال، لوحة المفاتيح) ---------- */
 document.addEventListener('click',e=>{
@@ -550,7 +830,7 @@ document.addEventListener('click',e=>{
   if(a==='drawer'){toggleDrawer()}
   else if(a==='gstoggle'){const w=$('#gsWrap'),o=w.classList.toggle('open');t.setAttribute('aria-expanded',o?'true':'false');if(o){const f=$('#gs');if(f)f.focus()}else gsRes.hidden=true}
   else if(a==='nf'){const o=nfPanel.hidden;if(o){nfRender();nfPanel.hidden=false}else nfPanel.hidden=true;t.setAttribute('aria-expanded',o?'true':'false')}
-  else if(a==='nfgo'){nfClose();S.mode=t.dataset.m;if(t.dataset.tab)DASH.tab=t.dataset.tab;render(true)}
+  else if(a==='nfgo'){nfClose();S.mode=t.dataset.m;if(t.dataset.tab){if(t.dataset.m==='live')LIVE.tab=t.dataset.tab;else DASH.tab=t.dataset.tab}render(true)}
   else if(a==='crumb'){if(t.dataset.v==='home'){S.mode='home';render(true)}else go(0)}
   else if(a==='gsgo'){gsGo(+t.dataset.i)}
   else if(a==='dtab'){DASH.tab=t.dataset.v;render(false)}
@@ -578,6 +858,9 @@ document.addEventListener('keydown',e=>{
 function render(top){
   syncBar();shellSync();fnavUpd();ctBoardUpd();
   if(S.mode!=='contest')ctStop();
+  if(S.mode==='studio'){app.innerHTML=studioView();studioDraw();if(top)window.scrollTo({top:0,behavior:'smooth'});return}
+  if(S.mode==='pulse'){app.innerHTML=pulseView();if(top)window.scrollTo({top:0,behavior:'smooth'});return}
+  if(S.mode==='live'){app.innerHTML=liveView();liveUpd();if(top)window.scrollTo({top:0,behavior:'smooth'});return}
   if(S.mode==='home'){app.innerHTML=homeView();if(top)window.scrollTo({top:0,behavior:'smooth'});return}
   if(S.mode==='contest'){app.innerHTML=ctView();if(top)window.scrollTo({top:0,behavior:'smooth'});return}
   if(S.mode==='kit'){app.innerHTML=kitView();if(top)window.scrollTo({top:0,behavior:'smooth'});return}
@@ -917,6 +1200,9 @@ function kitView(){
    <div class="kit"><h3>${ico('check-circle')}بطاقات التصويت</h3><p>إشارة المرور (أخضر، برتقالي، أحمر) وبطاقات «موثوق/مشكوك» و«سليم/خاطئ» و«سليمة/احتيال» للتصويت دون أجهزة.</p><button class="btn" data-act="kitprint" data-v="vote">طباعة</button></div>
    <div class="kit"><h3>${ico('users')}بطاقات لعب الأدوار</h3><p>ثماني بطاقات مواقف بأدوار وأسئلة، بحسب الفئة المختارة (${K()?'الأطفال':'الشباب'}).</p><button class="btn" data-act="kitprint" data-v="rp">طباعة</button></div>
    <div class="kit"><h3>${ico('heart')}ميثاق الأسرة للوقاية</h3><p>ورقة اتفاق بين الطفل ووليّه (الرفض، والإخبار دون عقاب، والتواصل)، تُطبع وتُوقَّع وتُؤخذ إلى البيت.</p><button class="btn" data-act="kitprint" data-v="pact">طباعة</button></div>
+   <div class="kit"><h3>${ico('repeat')}جلسة التعزيز</h3><p>خطة من 15 دقيقة تُبنى من المحطات الأضعف في نتائجكم، بأسئلة مراجعة ومفتاح إجابة.</p><button class="btn" data-act="kitprint" data-v="booster">طباعة</button></div>
+   <div class="kit"><h3>${ico('message')}رسالة إلى الأولياء</h3><p>صفحة ترسلها إلى البيت: ما تعلّمه أبناؤهم، وثلاثة أشياء يفعلونها، والأرقام.</p><button class="btn" data-act="kitprint" data-v="parentmsg">طباعة</button></div>
+   <div class="kit"><h3>${ico('life-buoy')}بطاقة الدعم المحلية</h3><p>ست بطاقات صغيرة بأرقام الطوارئ وأسماء من يلجأ إليهم أطفال مؤسستكم. تُملأ من «المساعدة والقانون».</p><button class="btn" data-act="kitprint" data-v="support">طباعة</button></div>
    <div class="kit wide"><h3>${ico('file')}ملصق QR</h3><p>ملصق يعلَّق في الدار، يحمل رمزين: رابط البرنامج ومجموعة الديوان على فيسبوك.</p>
     <p class="crow"><label>رابط البرنامج: <input id="kurl" dir="ltr" value="${esc(S.kitUrl)}" placeholder="${esc(autoUrl()||'https://…')}" style="width:min(100%,420px)"></label></p>
     <p class="crow"><label>سطر اختياري (المكان/الموعد): <input id="knote" value="${esc(S.kitNote)}" maxlength="80" style="width:min(100%,420px)"></label></p>
@@ -961,6 +1247,7 @@ function repHTML(){
   <table class="tbl"><thead><tr><th>السؤال</th><th>نعم</th><th>إلى حد ما</th><th>لا</th></tr></thead><tbody>${svrow}</tbody></table>
   ${repSummaryHTML()}
   ${ctRepHTML()}
+  ${pulseRepHTML()}
   <h3>ملاحظات المنشّط</h3><p class="rnotes">${esc(r.notes||'').replace(/\n/g,'<br>')||'&nbsp;'}</p>
   <div class="sigs2"><div><hr>توقيع المنشّط</div><div><hr>ختم المؤسسة</div></div></div>`;
 }
@@ -1026,7 +1313,7 @@ function addClick(a,t,e){
    case 'ctquit':ctStop();CT.phase='end';CT.tb=false;CT.tied=null;CT.board=false;ctSave();render(true);return true;
    case 'ctagain':ctBegin();render(true);return true;
    case 'ctsetup':ctStop();CT.phase='setup';render(true);return true;
-   case 'kitprint':{const v=t.dataset.v;printKit(v==='vote'?voteHTML():v==='rp'?rpHTML():v==='pact'?pactHTML():posterHTML());return true}
+   case 'kitprint':{const v=t.dataset.v;printKit(v==='vote'?voteHTML():v==='rp'?rpHTML():v==='pact'?pactHTML():v==='booster'?boosterHTML():v==='parentmsg'?parentMsgHTML():v==='support'?supportHTML():posterHTML());return true}
    case 'kitgoend':go(ST.length-1);return true;
    case 'repprint':printKit(repHTML());return true;
    case 'repcsv':try{download('session-log.csv',logCsv());const m=$('#rpm');if(m)m.textContent='إذا لم يبدأ التنزيل فانسخ البيانات من الجدول.'}catch(_){}return true;

@@ -248,3 +248,52 @@ span.opt{cursor:default;display:inline-block}
 .psec{margin:.9rem 0}
 .fbbtn .fbi{flex:none}
 .rep .tbl{min-width:0}
+
+/* ---------- أدوات الحصة: استوديو رسالتي ---------- */
+.studio-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:1.2rem;align-items:start}
+.studio-side{position:sticky;top:calc(var(--topbar-h) + 16px);display:grid;gap:.8rem}
+.studio-preview{background:var(--surface-sunken);border:var(--bw) solid var(--line);border-radius:var(--r-lg);padding:.8rem;display:grid;place-items:center}
+.studio-preview canvas{width:100%;max-width:420px;max-height:70vh;height:auto;object-fit:contain;border-radius:var(--r-md);box-shadow:var(--sh-3);display:block}
+.acts-col{display:grid;gap:.5rem}
+.acts-col .btn{width:100%}
+.studio-grid .opts{max-width:none}
+.studio-grid .opt{font-weight:var(--fw-medium)}
+@media (max-width:900px){.studio-grid{grid-template-columns:1fr}.studio-side{position:static}}
+
+/* ---------- نبض الصف ---------- */
+.pcounts{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.pcount{display:flex;flex-direction:column;align-items:center;gap:.4rem;background:var(--surface-sunken);border:var(--bw) solid var(--line);border-radius:var(--r-lg);padding:.8rem .5rem}
+.pcount.pro{border-color:var(--green-600);background:var(--green-50)}
+.pcount .pl{font-weight:var(--fw-black);color:var(--green-800);text-align:center;line-height:1.3}
+.pcount .pl small{display:block;font-size:.72rem;font-weight:var(--fw-medium);color:var(--green-600)}
+.pcount .pc-in{display:flex;align-items:center;gap:.5rem}
+.pcount .pc-in b{font-size:2.4rem;font-weight:var(--fw-black);color:var(--green-700);min-width:2.6rem;text-align:center;line-height:1}
+.pulse-res{margin-top:1.2rem;padding-top:1rem;border-top:var(--bw) solid var(--line)}
+@media (max-width:560px){.pcounts{grid-template-columns:1fr;gap:.5rem}.pcount{flex-direction:row;justify-content:space-between;padding:.6rem .9rem}.pcount .pl small{display:inline;margin-inline-start:.4rem}}
+
+/* ---------- إدارة الحصة ---------- */
+.live-clock{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;padding:1.4rem}
+.live-clock .lbl{font-weight:var(--fw-bold);color:var(--text-muted)}
+.live-clock>b{font-size:clamp(3.2rem,9vw,5.2rem);font-weight:var(--fw-black);color:var(--green-700);line-height:1;letter-spacing:.02em}
+.live-clock .progress{width:min(560px,100%)}
+.lv-row{display:flex;gap:1rem;align-items:center;justify-content:center;flex-wrap:wrap}
+.lv-row select{min-height:36px;padding:.2rem .6rem;margin-inline-start:.4rem}
+.phase-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.phase{position:relative;display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.9rem .5rem;background:#fff;border:var(--bw) solid var(--line-strong);border-radius:var(--r-lg);color:var(--text-body);transition:border-color var(--t-fast),background var(--t-fast),transform var(--t-fast)}
+.phase:hover{border-color:var(--green-600);transform:translateY(-1px)}
+.phase .ic{width:1.5rem;height:1.5rem;color:var(--green-600)}
+.phase b{color:var(--text-strong)}.phase .num{font-size:1.3rem;font-weight:var(--fw-black);color:var(--green-700)}
+.phase .pb{width:80%;height:6px;border-radius:var(--r-pill);background:var(--green-100);overflow:hidden;margin-top:.2rem}
+.phase .pb i{display:block;height:100%;background:var(--brand-gold);border-radius:inherit}
+.phase[aria-pressed="true"]{background:var(--green-50);border-color:var(--brand-green);box-shadow:0 0 0 3px var(--gold-200)}
+.phase[aria-pressed="true"] .ic{color:var(--brand-gold)}
+.qlist{list-style:none;padding:0;margin:0;display:grid;gap:.4rem}
+.qlist label{display:flex;gap:.7rem;align-items:flex-start;padding:.7rem .9rem;background:#fff;border:var(--bw) solid var(--line);border-radius:var(--r-md)}
+.qlist li.done label{background:var(--success-bg);border-color:var(--green-300);color:var(--text-muted)}
+.qlist li.done span{text-decoration:line-through;text-decoration-color:var(--green-300)}
+.qlist input{margin-top:.35rem}
+@media (max-width:520px){.phase-btns{gap:.4rem}.phase{padding:.7rem .2rem}}
+
+/* ---------- بطاقة الدعم المحلية ---------- */
+.loc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.2rem 1rem}
+@media (max-width:640px){.loc-grid{grid-template-columns:1fr}}
