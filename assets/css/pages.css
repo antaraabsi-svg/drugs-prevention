@@ -297,3 +297,5 @@ span.opt{cursor:default;display:inline-block}
 /* ---------- بطاقة الدعم المحلية ---------- */
 .loc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.2rem 1rem}
 @media (max-width:640px){.loc-grid{grid-template-columns:1fr}}
+
+.plprev{width:56px;height:56px;object-fit:contain;border:var(--bw) solid var(--line);border-radius:var(--r-md);background:#fff;padding:3px}

@@ -54,7 +54,7 @@
   .rpn{position:absolute;inset-inline-end:3mm;top:3mm;width:7mm;height:7mm;border-radius:50%;background:var(--brand-gold);color:var(--green-900);display:grid;place-items:center;font-weight:800;font-size:11pt}
 
   /* ---------- الملصق ---------- */
-  .poster{text-align:center;display:flex;flex-direction:column;align-items:center;min-height:270mm}
+  .poster{text-align:center;display:flex;flex-direction:column;align-items:center;height:266mm;overflow:hidden}
   .pbn{width:62mm;height:62mm;margin:2mm auto 0}
   .pth{font-weight:900;font-size:3.2rem;margin:.8rem 0 .2rem;color:var(--green-700)}
   .psub{font-size:1.25rem;max-width:34em;margin:.2rem 0 1rem}
@@ -62,6 +62,7 @@
   .pq{width:62mm;font-weight:800;font-size:1rem}.pq svg{width:100%;height:auto;display:block;border:2px solid var(--green-700);margin-bottom:.3rem}
   .pnote{font-size:1.2rem;font-weight:800;margin:.4rem 0}
   .pnum{margin-top:auto;background:var(--brand-green);color:#fff;border-radius:12px;padding:.5rem 1rem;font-size:1.1rem}
+  .pfoot{margin:.7rem 0 0;padding:.5rem 1.2rem 0;border-top:2px solid var(--brand-gold);max-width:36em;font-size:1.05rem;font-weight:700;line-height:1.7;color:var(--green-700)}
   .psig{display:flex;gap:.6rem;align-items:center;margin-top:.8rem;font-size:.9rem}.psig img{height:44px;width:auto}
 
   /* ---------- التقرير ---------- */

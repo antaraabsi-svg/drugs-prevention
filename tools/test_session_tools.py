@@ -11,8 +11,10 @@ LOGS=[{"id":1759500000000+i*3600000,"nm":f"م{i}","aud":"kids","score":30,"total
 R=[]
 def chk(n,c,x=''): R.append(('PASS' if c else 'FAIL',n,x))
 async def pdfpages(pg,name):
+    await pg.wait_for_timeout(600)
     await pg.pdf(path=PD+name,prefer_css_page_size=True,print_background=True)
     out=subprocess.run(['pdfinfo',PD+name],capture_output=True,text=True).stdout
+    await pg.evaluate("()=>document.body.classList.remove('pk','pc','pd')")
     return int([l for l in out.split('\n') if l.startswith('Pages')][0].split()[1])
 async def main():
     async with async_playwright() as p:
@@ -75,8 +77,8 @@ async def main():
         await pg.click('#tRep'); await pg.click('[data-act=dtab][data-v=boost]'); await pg.wait_for_timeout(300)
         chk('B1 booster plan + 5 recap questions',await pg.evaluate("()=>document.querySelectorAll('.card ol li').length>=5&&document.body.textContent.includes('خطة جلسة التعزيز')"))
         chk('B2 weak stations drive the plan (data-based)',await pg.evaluate("()=>!document.body.textContent.includes('لم تتوفر بيانات كافية')"))
-        await pg.click('[data-act=kitprint][data-v=booster]'); n=await pdfpages(pg,'booster.pdf'); chk('B3 booster print = 1 page',n==1,str(n)); await pg.wait_for_timeout(1700)
-        await pg.click('[data-act=kitprint][data-v=parentmsg]'); n=await pdfpages(pg,'parent.pdf'); chk('B4 parents message print = 1 page',n==1,str(n)); await pg.wait_for_timeout(1700)
+        await pg.click('[data-act=kitprint][data-v=booster]'); n=await pdfpages(pg,'booster.pdf'); chk('B3 booster print = 1 page',n==1,str(n))
+        await pg.click('[data-act=kitprint][data-v=parentmsg]'); n=await pdfpages(pg,'parent.pdf'); chk('B4 parents message print = 1 page',n==1,str(n))
         # ===== support card
         await pg.click('#tRef'); await pg.wait_for_timeout(300)
         await pg.fill('#loc_cons','الأستاذة سمية'); await pg.fill('#loc_consTel','0550 00 00 00'); await pg.fill('#loc_center','المركز الوسيط - البليدة')

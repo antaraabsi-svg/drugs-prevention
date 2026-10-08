@@ -27,14 +27,16 @@ const MAXP={what:5,myth:6,why:5,pills:5,halluc:5,refuse:2,pressure:2,online:2,si
 const TOTAL=Object.values(MAXP).reduce((a,b)=>a+b,0);
 const NSTATIONS=Object.keys(MAXP).length;
 
-const KEEP=['dz','snd','shuf','fnotes','hc','org','nm','stage','fs','path','pathN','dir','dwn','kitUrl','kitNote','rep'];
-function base(){return {aud:'kids',i:0,mode:'home',pts:{},ans:{},q:{},cor:{},ord:{},visited:{0:true},pledge:{},cardOpen:{},bal:{sleep:8,study:6,sport:1,screen:3},pre:{},post:{},dz:false,snd:false,shuf:true,fnotes:false,hc:false,org:'',nm:'',stage:false,fs:0,path:null,pathN:'',dir:'',dwn:'',sv:{},logId:0,kitUrl:'',kitNote:'',rep:{date:'',place:'',inst:'',fac:'',n:'',notes:''}}}
+const KEEP=['dz','snd','shuf','fnotes','hc','org','nm','stage','fs','path','pathN','dir','dwn','kitUrl','kitNote','kitFoot','rep'];
+function base(){return {aud:'kids',i:0,mode:'home',pts:{},ans:{},q:{},cor:{},ord:{},visited:{0:true},pledge:{},cardOpen:{},bal:{sleep:8,study:6,sport:1,screen:3},pre:{},post:{},dz:false,snd:false,shuf:true,fnotes:false,hc:false,org:'',nm:'',stage:false,fs:0,path:null,pathN:'',dir:'',dwn:'',sv:{},logId:0,kitUrl:'',kitNote:'',kitFoot:'',rep:{date:'',place:'',inst:'',fac:'',n:'',notes:''}}}
 const FSK='diwan-drugs-fs';
 function loadFs(){try{const v=parseInt(localStorage.getItem(FSK)||'0',10);return Math.max(-1,Math.min(4,isNaN(v)?0:v))}catch(_){return 0}}
 let S=base(),SAVED=null,curKey='intro',CLOGO='';
 S.fs=loadFs();
 try{CLOGO=localStorage.getItem('diwan-drugs-logo')||''}catch(_){}
 try{const r=localStorage.getItem(KEY);if(r)SAVED=JSON.parse(r)}catch(_){}
+/* إعدادات الجهة (الرأسية، الملصق، التقرير، خيارات العرض) تُستعاد تلقائيًا دون أي بيانات للمشارك */
+(function(){const sv=SAVED;if(!sv)return;['org','dir','dwn','kitUrl','kitNote','kitFoot','dz','snd','shuf','fnotes','hc','stage','path','pathN'].forEach(k=>{if(sv[k]!==undefined)S[k]=sv[k]});if(sv.rep&&typeof sv.rep==='object')['place','inst','fac','n','notes'].forEach(k=>{if(sv.rep[k]!==undefined)S.rep[k]=sv.rep[k]})})();
 function fresh(keep){const old=S;S=base();if(keep&&old)KEEP.forEach(k=>S[k]=old[k])}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(_){}}
 function hasProg(o){return !!(o&&((o.pts&&Object.keys(o.pts).length)||(o.pre&&Object.keys(o.pre).length)||o.i>0))}
@@ -204,8 +206,8 @@ const VIEW={
       <div class="cform">
         <p class="crow"><label>اسم المشارك: <input id="nm" placeholder="اكتب الاسم" maxlength="40" value="${esc(S.nm)}"></label></p>
         <p class="warn">رأسية الشهادة (اختيارية): اكتب ما تريد أن يظهر أعلى الشهادة.</p>
-        <p class="crow"><label>الديوان/الهيئة: <input id="dwn" placeholder="يكتبه المستخدم" maxlength="70" value="${esc(S.dwn)}"></label></p>
         <p class="crow"><label>المديرية: <input id="dir" placeholder="يكتبها المستخدم" maxlength="70" value="${esc(S.dir)}"></label></p>
+        <p class="crow"><label>الديوان/الهيئة: <input id="dwn" placeholder="يكتبه المستخدم" maxlength="70" value="${esc(S.dwn)}"></label></p>
         <p class="crow"><label>المؤسسة/الدار: <input id="org" placeholder="يكتبها المستخدم" maxlength="70" value="${esc(S.org)}"></label></p>
         <div class="crow lgrow"><span>الشعار:</span>
           <label class="btn sec fl">رفع شعار<input type="file" id="lgf" accept="image/*" class="vh"></label>
@@ -820,6 +822,18 @@ document.addEventListener('change',e=>{
   else if(a==='qdone'){const q=getQ();const x=q.find(y=>String(y.id)===t.dataset.id);if(x){x.done=t.checked;lsSet(QBK,q);render(false);nfUpd()}}
 });
 
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act]');if(!t)return;
+  if(t.dataset.act==='pld'){setPLogo('');render(false)}
+  else if(t.dataset.act==='plx'){setPLogo('none');render(false)}
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.dataset&&t.dataset.act==='plf'&&t.files&&t.files[0]){
+    fileToLogo(t.files[0],480,v=>{setPLogo(v);render(false)},()=>{const m=$('#plm');if(m)m.textContent='تعذّرت قراءة الصورة. جرّب صورة PNG أو JPG.'});
+  }
+});
 /* ---------- مستمعات الغلاف (نقر، إدخال، لوحة المفاتيح) ---------- */
 document.addEventListener('click',e=>{
   if(!e.target.closest('#gsWrap')&&gsRes)gsRes.hidden=true;
@@ -943,14 +957,14 @@ function summaryText(){
   return `الاسم: ${S.nm||'-'}\nالمؤسسة: ${S.org||'-'}\nالفئة: ${K()?'أطفال':'شباب'}\nنتيجة المحطات: ${p}/${ptot()}\nالمستوى: ${lvlOf(pct)}\nالاختبار القبلي: ${a}\nالاختبار البعدي: ${b}`;
 }
 function certHead(){
-  const l=[S.dwn,S.dir,S.org].map(x=>(x||'').trim()).filter(Boolean);
+  const l=[S.dir,S.dwn,S.org].map(x=>(x||'').trim()).filter(Boolean);
   if(!CLOGO&&!l.length)return '';
   return `<div class="ch">${CLOGO?`<img src="${CLOGO}" alt="">`:''}${l.map((x,i)=>`<div class="l${i?2:1}">${esc(x)}</div>`).join('')}</div>`;
 }
 function initEnd(){
   const pr=$('#pr'),cp=$('#cp'),dl=$('#dl'),msg=$('#cpm');
-  const prev=()=>{$('#cprev').innerHTML=certHead()||'<span class="warn">ستظهر الرأسية هنا: الشعار، ثم الديوان، ثم المديرية، ثم المؤسسة.</span>'};
-  [['nm','nm'],['dwn','dwn'],['dir','dir'],['org','org']].forEach(([id,k])=>{const e=$('#'+id);e.addEventListener('input',()=>{S[k]=e.value;save();prev()})});
+  const prev=()=>{$('#cprev').innerHTML=certHead()||'<span class="warn">ستظهر الرأسية هنا: الشعار، ثم المديرية، ثم الديوان/الهيئة، ثم المؤسسة.</span>'};
+  [['nm','nm'],['dir','dir'],['dwn','dwn'],['org','org']].forEach(([id,k])=>{const e=$('#'+id);e.addEventListener('input',()=>{S[k]=e.value;save();prev()})});
   function setLogo(v){CLOGO=v;try{if(v)localStorage.setItem('diwan-drugs-logo',v);else localStorage.removeItem('diwan-drugs-logo')}catch(_){}prev()}
   prev();
   $('#lgf').addEventListener('change',e=>{
@@ -996,16 +1010,24 @@ function initEnd(){
     }catch(_){msg.textContent='التنزيل غير متاح هنا؛ استعمل «نسخ نتيجتي».'}
   });
 }
-function printWith(cls){
+async function printWith(cls){
   document.body.classList.add(cls);
   /* حجم الصفحة يُحقن وقت الطباعة فقط، فيعمل في كل المتصفحات (الشهادة أفقية، والبقية عمودية) */
   const pg=document.createElement('style');
   pg.textContent=cls==='pc'?'@page{size:A4 landscape;margin:8mm}':'@page{size:A4 portrait;margin:'+(cls==='pk'?'10mm':'12mm')+'}';
   document.head.appendChild(pg);
-  const off=()=>{document.body.classList.remove(cls);if(pg.parentNode)pg.parentNode.removeChild(pg);window.removeEventListener('afterprint',off)};
+  let done=false;
+  const off=()=>{if(done)return;done=true;document.body.classList.remove(cls);if(pg.parentNode)pg.parentNode.removeChild(pg);window.removeEventListener('afterprint',off)};
   window.addEventListener('afterprint',off);
+  /* انتظر تحميل وفك ترميز كل صور المطبوع (الشعار، بطاقة الاستوديو…) وإلا تخرج الصفحة فارغة في بعض المتصفحات */
+  try{
+    const box=cls==='pc'?$('#printcert'):cls==='pk'?$('#printkit'):document.body;
+    const imgs=[...box.querySelectorAll('img')];
+    await Promise.race([Promise.all(imgs.map(i=>(i.decode?i.decode():Promise.resolve()).catch(()=>{}))),new Promise(r=>setTimeout(r,3000))]);
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+  }catch(_){}
   window.print();
-  setTimeout(off,1500);
+  setTimeout(off,30000);   /* احتياط إن لم يصدر المتصفح حدث afterprint */
 }
 
 /* ---------- badges & toast ---------- */
@@ -1183,13 +1205,27 @@ function rpHTML(){
   const list=RP[S.aud];
   return `<div class="kpage rpp"><h1 class="kt">بطاقات لعب الأدوار — ${K()?'الأطفال':'الشباب'}</h1><p class="kn">قصّ البطاقات، ووزّعوا الأدوار بين أفراد المجموعة، وتدرّبوا على الموقف ثم ناقشوا الأسئلة.</p><div class="rpg">${list.map((c,i)=>`<div class="rpc"><div class="rpn">${i+1}</div><h2>${c.t}</h2><p>${c.s}</p><p><b>الأدوار:</b> ${c.r.join(' · ')}</p><ul>${c.q.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div></div>`;
 }
+/* شعار الملصق: '' = شعار البرنامج الرسمي، 'none' = بلا شعار، وإلا صورة يرفعها المستخدم */
+const PLK='diwan-drugs-plogo';
+const getPLogo=()=>{try{return localStorage.getItem(PLK)||''}catch(_){return ''}};
+const setPLogo=v=>{try{if(v)localStorage.setItem(PLK,v);else localStorage.removeItem(PLK)}catch(_){}};
+const posterLogoSrc=()=>{const v=getPLogo();return v==='none'?'':(v||LOGO_HI)};
+function fileToLogo(f,max,cb,fail){
+  const r=new FileReader();
+  r.onload=()=>{const im=new Image();
+    im.onload=()=>{try{const sc=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*sc));c.height=Math.max(1,Math.round(im.height*sc));c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/png'))}catch(_){cb(r.result)}};
+    im.onerror=fail;im.src=r.result};
+  r.onerror=fail;r.readAsDataURL(f);
+}
 function posterHTML(){
   const u=progUrl();
-  return `<div class="kpage poster"><img class="pbn" src="${LOGO_HI}" alt="">
+  const pl=posterLogoSrc();
+  return `<div class="kpage poster">${pl?`<img class="pbn" src="${pl}" alt="">`:''}
    <h1 class="pth">وعيي درعي</h1><p class="psub">برنامج تحسيسي تفاعلي للوقاية من المخدرات والمهلوسات</p>
    <div class="pqs">${u?`<div class="pq">${QR.svg(u,{label:'رمز البرنامج'})}<b>افتح البرنامج</b></div>`:''}<div class="pq">${QR.svg(FBURL,{label:'رمز مجموعة فيسبوك'})}<b>انضم إلى مجموعة الديوان على فيسبوك</b></div></div>
    ${S.kitNote?`<p class="pnote">${esc(S.kitNote)}</p>`:''}
    <div class="pnum"><b>لست وحدك:</b> الرقم الأخضر 1111 · الشرطة 1548 · الدرك الوطني 1055 · الحماية المدنية 14</div>
+   ${(S.kitFoot||'').trim()?`<div class="pfoot">${esc(S.kitFoot.trim()).replace(/\n/g,'<br>')}</div>`:''}
    <div class="psig"><span>إعداد وتصميم</span><img src="${imgSrc('.sigsm')}" alt=""></div></div>`;
 }
 function kitView(){
@@ -1206,6 +1242,13 @@ function kitView(){
    <div class="kit wide"><h3>${ico('file')}ملصق QR</h3><p>ملصق يعلَّق في الدار، يحمل رمزين: رابط البرنامج ومجموعة الديوان على فيسبوك.</p>
     <p class="crow"><label>رابط البرنامج: <input id="kurl" dir="ltr" value="${esc(S.kitUrl)}" placeholder="${esc(autoUrl()||'https://…')}" style="width:min(100%,420px)"></label></p>
     <p class="crow"><label>سطر اختياري (المكان/الموعد): <input id="knote" value="${esc(S.kitNote)}" maxlength="80" style="width:min(100%,420px)"></label></p>
+    <p class="crow"><label>نص أسفل الملصق (اختياري): <textarea id="kfoot" rows="2" maxlength="180" style="width:min(100%,420px)" placeholder="مثال: دار الشباب الشهيد … · العنوان · الهاتف · مواعيد الحصص">${esc(S.kitFoot||'')}</textarea></label></p>
+    <div class="crow lgrow"><span>شعار الملصق:</span>
+      <img class="plprev" alt="" ${posterLogoSrc()?`src="${posterLogoSrc()}"`:'hidden'}>
+      <label class="btn sec fl">رفع شعار<input type="file" accept="image/*" data-act="plf" class="vh"></label>
+      <button class="btn sec" type="button" data-act="pld">شعار البرنامج الرسمي</button>
+      <button class="btn sec" type="button" data-act="plx">بلا شعار</button></div>
+    <p class="warn" id="plm" aria-live="polite">${getPLogo()==='none'?'الملصق بلا شعار.':getPLogo()?'يُستعمل الشعار الذي رفعتَه.':'يُستعمل شعار الديوان الرسمي.'}</p>
     <div class="qprev" id="qprev">${qrp}</div>${err?`<p class="warn">${err}</p>`:''}
     <p class="warn">يجب أن يكون الرابط قابلًا للفتح من هواتف الحاضرين (رابط منشور ومشارَك).${!(S.kitUrl||'').trim()&&autoUrl()?' يُستعمل الآن تلقائيًا رابط هذه الصفحة.':''}</p>
     <button class="btn" data-act="kitprint" data-v="poster">طباعة الملصق</button></div>
@@ -1339,6 +1382,7 @@ function addInput(t){
   if(a==='rp'){S.rep[t.dataset.k]=t.value;save();return true}
   if(t.id==='kurl'){S.kitUrl=t.value;save();const q=$('#qprev');if(q){try{q.innerHTML=QR.svg(progUrl()||FBURL,{border:2})}catch(_){q.innerHTML='<span class="warn">الرابط طويل جدًا لرمز QR.</span>'}}return true}
   if(t.id==='knote'){S.kitNote=t.value;save();return true}
+  if(t.id==='kfoot'){S.kitFoot=t.value;save();return true}
   return false;
 }
 
@@ -1516,7 +1560,7 @@ document.addEventListener('toggle',e=>{
 },true);
 document.addEventListener('input',e=>{
   const t=e.target;
-  if(t.dataset&&t.dataset.act==='sl'){}
+  if(addInput(t))return;   /* حفظ حقول الإدخال أثناء الكتابة: أسماء الفرق، التقرير، رابط الملصق ونصوصه */
 });
 document.addEventListener('change',e=>{
   const t=e.target;
